@@ -26,32 +26,38 @@ interface ServiceSectionContent {
 
 const content: ServiceSectionContent = {
   header: {
-    title: "Services",
-    subtitle: "Run the command to explore my professional services. From web development to DevOps, I deliver solutions that compile flawlessly.",
-    path: "services",
+    title: "Expertise",
+    subtitle: "Run the command to explore my technical expertise. From backend architecture to distributed systems, I build solutions that scale.",
+    path: "expertise",
   },
   services: [
     {
-      title: "Web Development",
-      icon: "fas fa-code",
-      description: "Building responsive, scalable web applications using modern frameworks like React, Next.js, Node.js, and Python. From front-end interfaces to robust back-end APIs, I deliver end-to-end solutions.",
-      skills: ["React", "Node.js", "Next.js", "TailwindCSS"],
-    },
-    {
-      title: "DevOps",
+      title: "Backend Development",
       icon: "fas fa-server",
-      description: "Streamlining deployment with Docker, CI/CD pipelines, and cloud platforms like AWS. I ensure your applications run smoothly with high availability and scalability.",
-      skills: ["Docker", "AWS", "Git", "CI/CD"],
+      description: "Building high-performance backend systems using Java and Spring Boot ecosystem. Designing RESTful APIs, implementing business logic, and ensuring code quality with best practices.",
+      skills: ["Java", "Spring Boot", "Spring MVC", "MyBatis"],
     },
     {
-      title: "Technical Consulting",
-      icon: "fas fa-lightbulb",
-      description: "Providing expert guidance on architecture, tech stack selection, and code optimization. I help teams navigate complex projects with actionable insights.",
-      skills: ["Architecture", "Optimization", "Mentoring"],
+      title: "Distributed Systems",
+      icon: "fas fa-sitemap",
+      description: "Architecting microservices with Spring Cloud, implementing service discovery, load balancing, circuit breakers, and distributed configuration management.",
+      skills: ["Spring Cloud", "Nacos", "Gateway", "Sentinel"],
+    },
+    {
+      title: "Database & Caching",
+      icon: "fas fa-database",
+      description: "Optimizing MySQL performance with proper indexing, query tuning, and sharding strategies. Implementing Redis caching for high-throughput scenarios.",
+      skills: ["MySQL", "Redis", "Elasticsearch", "MongoDB"],
+    },
+    {
+      title: "DevOps & Cloud",
+      icon: "fab fa-docker",
+      description: "Containerizing applications with Docker, orchestrating with Kubernetes, and implementing CI/CD pipelines for automated deployment and scaling.",
+      skills: ["Docker", "Kubernetes", "Jenkins", "Linux"],
     },
   ],
   cta: {
-    text: "Start Collaboration",
+    text: "Get in Touch",
     href: "/contact",
     icon: "fas fa-terminal",
   }
