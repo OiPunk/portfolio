@@ -39,12 +39,12 @@ const defaultAuthor: Author = {
 export const blogItems: BlogItemType[] = [
   {
     title: "Spring IoC Annotation Usage",
-    excerpt: "除了使用xml文件进行bean或者某些属性的赋值-还有另外一种注解的方式-在企业开发中使用的很多-在bean上添加注解-可以快速的将bean注册到ioc容器。",
+    excerpt: "Master Spring IoC annotation-based configuration including @Component, @Autowired, @Qualifier, and component scanning for enterprise applications.",
     image: '/img/blog1.jpg',
     url: '/blog/2020-04-03-spring-ioc',
     date: 'April 3, 2020',
     category: 'Spring',
-    tags: ["框架","Spring","IOC"],
+    tags: ["Framework","Spring","IOC"],
     slug: '2020-04-03-spring-ioc',
     content: `<p><h1>Spring IOC的注解使用</h1></p><p>​ 在之前的项目中-我们都是通过xml文件进行bean或者某些属性的赋值-其实还有另外一种注解的方式-在企业开发中使用的很多-在bean上添加注解-可以快速的将bean注册到ioc容器。</p><p><h3>1、使用注解的方式注册bean到IOC容器中</h3></p><p>applicationContext.xml</p><p>PersonController.java</p><p>\`\`<code>java
 package com.oi.controller;import org.springframework.stereotype.Controller;@Controllerpublic class PersonController {    public PersonController() {        System.out.println("创建对象");    }}
@@ -72,12 +72,12 @@ package com.oi.controller;import com.oi.dao.PersonDao;import com.oi.service.Pers
   },
   {
     title: "MySQL Transaction Test Cases",
-    excerpt: "事务的隔离级别及对应异常情况的测试用例",
+    excerpt: "Comprehensive test cases for MySQL transaction isolation levels covering dirty reads, non-repeatable reads, and phantom reads with practical SQL examples.",
     image: '/img/blog2.jpg',
     url: '/blog/2020-05-03-mysql',
     date: 'May 3, 2020',
     category: 'Database',
-    tags: ["MySQL"],
+    tags: ["MySQL","Database"],
     slug: '2020-05-03-mysql',
     content: `<p><h1>mysql事务测试</h1></p><p>1、打开mysql的命令行-将自动提交事务给关闭</p><p>\`\`<code>sql
 --查看是否是自动提交 1表示开启-0表示关闭select @@autocommit;--设置关闭set autocommit = 0;
@@ -98,12 +98,12 @@ set session transaction isolation level repeatable read;A:start transaction;A:se
   },
   {
     title: "Java Memory Model (JMM)",
-    excerpt: "Java内存模型分析",
+    excerpt: "Deep dive into Java Memory Model covering CPU cache coherence, MESI protocol, memory barriers, happens-before relationships, and volatile semantics.",
     image: '/img/blog3.jpg',
     url: '/blog/2020-05-13-java',
     date: 'May 13, 2020',
     category: 'Java',
-    tags: ["JVM","JMM"],
+    tags: ["JVM","JMM","Memory"],
     slug: '2020-05-13-java',
     content: `<p><img src="/images/blog/image-20200406103106651.png" alt="illustration" class="my-4" /></p><p>离CPU越近, 速度越快, 空间越小</p><p><img src="/images/blog/image-20200406103208497.png" alt="illustration" class="my-4" /></p><p>数据不一致问题</p><p><img src="/images/blog/image-20200406103255933.png" alt="illustration" class="my-4" /> <img src="/images/blog/image-20200406103528554.png" alt="illustration" class="my-4" /></p><p>缓存锁</p><p><img src="/images/blog/image-20200406103638477.png" alt="illustration" class="my-4" /></p><p>和主存内容比较  
 Modified改过, 再加载 Exclusive独享 Shared我读的时候别人也在读 Invalid读时被别的CPU改过</p><p>现代CPU的数据一致性实现 = 缓存锁(MESI …) + 总线锁读取缓存以cache line为基本单位-目前64bytes</p><p>位于同一缓存行的两个不同数据-被两个不同CPU锁定-产生互相影响的伪共享问题</p><p>伪共享问题：JUC/c_028_FalseSharing</p><p>使用缓存行的对齐能够提高效率</p><p><img src="/images/blog/image-20200406105854481.png" alt="illustration" class="my-4" /></p><p>乱序问题</p><p><img src="/images/blog/image-20200406105951702.png" alt="illustration" class="my-4" /></p><p>CPU为了提高指令执行效率-会在一条指令执行过程中（比如去内存读数据（慢100倍））-去同时执行另一条指令-前提是-两条指令没有依赖关系</p><p>写操作也可以进行合并</p><p>乱序执行的证明：JVM/jmm/Disorder.java</p><p><h2>如何保证特定情况下不乱序</h2></p><p>硬件内存屏障 X86</p><p>> sfence: store| 在sfence指令前的写操作当必须在sfence指令后的写操作前完成。  
@@ -194,12 +194,12 @@ Modified改过, 再加载 Exclusive独享 Shared我读的时候别人也在读 I
   },
   {
     title: "IoC Container Basics",
-    excerpt: "如何在xml中配置bean对象及IOC源码分析",
+    excerpt: "Complete guide to Spring IoC container basics including XML configuration, dependency injection, bean scopes, lazy loading, and autowiring strategies.",
     image: '/img/blog4.jpg',
     url: '/blog/2020-05-22-ioc',
     date: 'May 22, 2020',
     category: 'Spring',
-    tags: ["框架","Spring","IOC"],
+    tags: ["Framework","Spring","IOC"],
     slug: '2020-05-22-ioc',
     content: `<p><h1>Spring IOC基本使用</h1></p><p><h3>1、spring_helloworld</h3></p><p>##### <strong>(1)使用手动加载jar包的方式实现-分为三个步骤-现在几乎不用</strong></p><p><li><strong>导包：导入这五个包即可</strong></li></p><p>  commons-logging-1.2.jar  
   spring-beans-5.2.3.RELEASE.jar  
@@ -224,12 +224,12 @@ import com.oi.bean.Person;import org.springframework.context.ApplicationContext;
   },
   {
     title: "Java Concurrent Programming",
-    excerpt: "详解Java中的锁机制-并发容器-线程通信-线程池的原理及使用",
+    excerpt: "Comprehensive guide to Java concurrency covering threads, synchronized, locks, concurrent collections, thread pools, and JUC utilities.",
     image: '/img/blog5.jpg',
     url: '/blog/2020-05-23-java',
     date: 'May 23, 2020',
     category: 'Backend',
-    tags: ["Java SE","多线程","JUC"],
+    tags: ["Java SE","Multithreading","JUC"],
     slug: '2020-05-23-java',
     content: `<p><h3>线程</h3></p><p>#### 概念</p><p><img src="/images/blog/image-20200331171617504.png" alt="illustration" class="my-4" /></p><p><img src="/images/blog/01_02.jpg" alt="illustration" class="my-4" /></p><p><img src="/images/blog/image-20200522121553190.png" alt="illustration" class="my-4" /></p><p>什么是叫一个进程？ 什么叫一个线程？</p><p><img src="/images/blog/image-20200522121725120.png" alt="illustration" class="my-4" /></p><p><li>Program app ->QQ.exe</li></p><p>  <strong>进程：</strong>做一个简单的解释-你的硬盘上有一个简单的程序-这个程序叫QQ.exe-这是一个程序-这个程序是一个静态的概念-它被扔在硬盘上也没人理他-但是当你双击它-弹出一个界面输入账号密码登录进去了-OK-这个时候叫做一个进程。进程相对于程序来说它是一个动态的概念</p><p>  <strong>线程：</strong>作为一个进程里面最小的执行单元它就叫一个线程-用简单的话讲一个程序里不同的执行路径就叫做一个线程</p><p>#### 启动线程的五种方式</p><p>1: 继承Thread类 2: 实现Runnable 3: 线程池Executors.newCachedThrad</p><p>\`\`<code>java
 package com.oi.juc.c_000;import java.util.concurrent.Callable;import java.util.concurrent.ExecutorService;import java.util.concurrent.Executors;import java.util.concurrent.FutureTask;public class T02_HowToCreateThread {    static class MyThread extends Thread {        @Override        public void run() {            System.out.println("Hello MyThread!");        }    }    static class MyRun implements Runnable {        @Override        public void run() {            System.out.println("Hello MyRun!");        }    }    static class MyCall implements Callable {        @Override        public String call() {            System.out.println("Hello MyCall");            return "success";        }    }    //启动线程的5种方式    public static void main(String[] args) {        // 继承Thread        new MyThread().start();        // 实现Runable        new Thread(new MyRun()).start();        // Lambda        new Thread(()->{            System.out.println("Hello Lambda!");        }).start();		// 实现Callable        Thread t = new Thread(new FutureTask(new MyCall()));        t.start();		// 缓存线程池        ExecutorService service = Executors.newCachedThreadPool();        service.execute(()->{            System.out.println("Hello ThreadPool");        });        service.shutdown();    }}
@@ -245,7 +245,7 @@ package com.oi.juc.c_000;public class T03_Sleep_Yield_Join {    public static vo
   },
   {
     title: "Introduction to Spring Framework",
-    excerpt: "Spring基本介绍",
+    excerpt: "Getting started with Spring Framework fundamentals including IoC container, dependency injection principles, and core module architecture.",
     image: '/img/blog6.jpg',
     url: '/blog/2020-05-23-spring',
     date: 'May 23, 2020',
@@ -263,7 +263,7 @@ Spring makes it easy to create Java enterprise applications. It provides everyth
   },
   {
     title: "Nginx and Tengine Deep Dive",
-    excerpt: "什么是服务端负载均衡？Nginx与Tengine的解析",
+    excerpt: "High-performance web server configuration guide covering Nginx and Tengine setup, reverse proxy, load balancing, and optimization techniques.",
     image: '/img/blog1.jpg',
     url: '/blog/2020-06-12-nginxtengine',
     date: 'June 12, 2020',
@@ -293,12 +293,12 @@ Spring makes it easy to create Java enterprise applications. It provides everyth
   },
   {
     title: "MySQL Index Optimization Case Study",
-    excerpt: "MySQL之覆盖索引、最左前缀、索引下推相关案例分析",
+    excerpt: "Real-world MySQL index optimization cases with execution plan analysis, covering index selection, composite indexes, and query tuning.",
     image: '/img/blog2.jpg',
     url: '/blog/2020-06-13-mysql',
     date: 'June 13, 2020',
     category: 'Database',
-    tags: ["MySQL"],
+    tags: ["MySQL","Database"],
     slug: '2020-06-13-mysql',
     content: `<p><h1>MySQL之覆盖索引、最左前缀、索引下推案例</h1></p><p>#### 覆盖索引</p><p>mysql的innodb引擎通过搜索树方式实现索引-索引类型分为主键索引和二级索引（非主键索引）-主键索引树中-叶子结点保存着主键即对应行的全部数据；而二级索引树中-叶子结点保存着索引值和主键值-当使用二级索引进行查询时-需要进行回表操作。假如我们现在有如下表结构</p><p>\`\`<code>plain
 CREATE TABLE </code>user_table<code> (  </code>id<code> int(11) unsigned NOT NULL AUTO_INCREMENT,  </code>username<code> varchar(255) NOT NULL,  </code>password<code> varchar(255) DEFAULT NULL,  </code>age<code> int(11) unsigned Not NULL,  PRIMARY KEY (</code>id<code>),  key (</code>username<code>)) ENGINE=InnoDB  DEFAULT CHARSET=utf8
@@ -327,12 +327,12 @@ SET optimizer_switch = 'index_condition_pushdown=off';
   },
   {
     title: "快速排序优化——荷兰国旗与随机快排",
-    excerpt: "如何借助荷兰国旗问题-一步步将快排优化至稳定的O(N*logN)",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog3.jpg',
     url: '/blog/2020-06-13',
     date: 'June 13, 2020',
     category: 'Backend',
-    tags: ["算法-排序"],
+    tags: ["Algorithm","Sorting"],
     slug: '2020-06-13',
     content: `<p><h3>快速排序</h3></p><p><img src="/images/blog/image-20200423062433436.png" alt="illustration" class="my-4" /> <img src="/images/blog/image-20200423062734100.png" alt="illustration" class="my-4" /> 小于等于num, 当前数和<=区下一个数交换 大于num, 直接跳下一个</p><p>分三段: 荷兰国旗问题  
 <img src="/images/blog/image-20200423070643055.png" alt="illustration" class="my-4" />  
@@ -350,12 +350,12 @@ SET optimizer_switch = 'index_condition_pushdown=off';
   },
   {
     title: "Redis: Past, Present and Future",
-    excerpt: "浅析数据存储的演变过程-介绍Redis的基本使用和进阶使用",
+    excerpt: "Evolution of data storage from files to databases to caching, with comprehensive Redis guide covering data types, persistence, and clustering.",
     image: '/img/blog4.jpg',
     url: '/blog/2020-06-15-redis',
     date: 'June 15, 2020',
     category: 'Redis',
-    tags: ["Redis"],
+    tags: ["Redis","Cache"],
     slug: '2020-06-15-redis',
     content: `<p><h2>Redis的前世今生</h2></p><p><h3>基本介绍</h3></p><p>#### 数据存储演变过程</p><p><img src="/images/blog/image-20200408080531729.png" alt="illustration" class="my-4" /></p><p><li> <strong>数据存储在文件中：</strong>查找数据造成全量扫描-受限于磁盘IO的瓶颈</li>
 <li> <strong>关系型数据库：</strong>关系型数据库是行级存储-会空出来没有数据列-受限于磁盘IO的瓶颈</li>
@@ -378,12 +378,12 @@ xx: 只能更新</p><p>#### String</p><p><img src="/images/blog/image-2020040911
   },
   {
     title: "MyBatis SQL Mapping File Guide",
-    excerpt: "什么是MyBatis？ORM框架初体验",
+    excerpt: "Complete reference for MyBatis SQL mapping files including result maps, dynamic SQL, associations, and advanced mapping techniques.",
     image: '/img/blog5.jpg',
     url: '/blog/2020-06-16-mybatis-sql',
     date: 'June 16, 2020',
     category: 'MyBatis',
-    tags: ["框架","MyBatis","ORM"],
+    tags: ["Framework","MyBatis","ORM"],
     slug: '2020-06-16-mybatis-sql',
     content: `<p><h1>Mybatis SQL映射文件详解</h1></p><p>​ 在映射文件中-可以编写以下的顶级元素标签：</p><p>\`\`<code>plain
 cache – 该命名空间的缓存配置。cache-ref – 引用其它命名空间的缓存配置。resultMap – 描述如何从数据库结果集中加载对象-是最复杂也是最强大的元素。parameterMap – 老式风格的参数映射。此元素已被废弃-并可能在将来被移除！请使用行内参数映射。文档中不会介绍此元素。sql – 可被其它语句引用的可重用语句块。insert – 映射插入语句。update – 映射更新语句。delete – 映射删除语句。select – 映射查询语句。
@@ -407,12 +407,12 @@ package com.mashibing.bean;public class Dog {    private Integer id;    private 
   },
   {
     title: "Introduction to MyBatis",
-    excerpt: "什么是MyBatis？ORM框架初体验",
+    excerpt: "Quick start guide to MyBatis ORM framework covering configuration, mappers, CRUD operations, and integration with Spring.",
     image: '/img/blog6.jpg',
     url: '/blog/2020-06-16-mybatis',
     date: 'June 16, 2020',
     category: 'MyBatis',
-    tags: ["框架","MyBatis","ORM"],
+    tags: ["Framework","MyBatis","ORM"],
     slug: '2020-06-16-mybatis',
     content: `<p><h1>Mybatis的介绍和基本使用</h1></p><p><h3>0、数据库操作框架的历程</h3></p><p>##### (1) JDBC</p><p>​ JDBC(Java Data Base Connection,java数据库连接)是一种用于执行SQL语句的Java API,可以为多种关系数据库提供统一访问,它由一组用Java语言编写的类和接口组成.JDBC提供了一种基准,据此可以构建更高级的工具和接口,使数据库开发人员能够编写数据库应用程序</p><p><li>优点：运行期：快捷、高效</li>
 <li>缺点：编辑期：代码量大、繁琐异常处理、不支持数据库跨平台</li></p><p><img src="/images/blog/jdbc.jpg" alt="illustration" class="my-4" /></p><p>##### (2) DBUtils</p><p>​ DBUtils是Java编程中的数据库操作实用工具-小巧简单实用。</p><p>​ DBUtils封装了对JDBC的操作-简化了JDBC操作-可以少写代码。</p><p>​ DBUtils三个核心功能介绍</p><p>​ 1、QueryRunner中提供对sql语句操作的API</p><p>​ 2、ResultSetHandler接口-用于定义select操作后-怎样封装结果集</p><p>​ 3、DBUtils类-它就是一个工具类-定义了关闭资源与事务处理的方法</p><p>##### (3)Hibernate</p><p>​ Hibernate 是由 Gavin King 于 2001 年创建的开放源代码的对象关系框架。它强大且高效的构建具有关系对象持久性和查询服务的 Java 应用程序。</p><p>​ Hibernate 将 Java 类映射到数据库表中-从 Java 数据类型中映射到 SQL 数据类型中-并把开发人员从 95% 的公共数据持续性编程工作中解放出来。</p><p>​ Hibernate 是传统 Java 对象和数据库服务器之间的桥梁-用来处理基于 O/R 映射机制和模式的那些对象。</p><p><img src="/images/blog/hibernate.jpg" alt="illustration" class="my-4" /></p><p>​ <strong>Hibernate 优势</strong></p><p><li>Hibernate 使用 XML 文件来处理映射 Java 类别到数据库表格中-并且不用编写任何代码。</li>
@@ -439,12 +439,12 @@ package com.oi.dao;import com.oi.bean.Emp;public interface EmpD`,
   },
   {
     title: "Mybatis Plus逆向工程",
-    excerpt: "MyBatis加强版-拥有强大的逆向工程功能",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog1.jpg',
     url: '/blog/2020-06-17-mybatis-plus',
     date: 'June 17, 2020',
     category: 'MyBatis',
-    tags: ["框架","MyBatis","ORM"],
+    tags: ["Framework","MyBatis","ORM"],
     slug: '2020-06-17-mybatis-plus',
     content: `<p><h1>Mybatis-plus的使用</h1></p><p>​ MyBatis-Plus（简称 MP）是一个 MyBatis的增强工具-在 MyBatis 的基础上只做增强不做改变-为简化开发、提高效率而生。</p><p>​ 特性：</p><p><li><strong>无侵入</strong>：只做增强不做改变-引入它不会对现有工程产生影响-如丝般顺滑</li>
 <li><strong>损耗小</strong>：启动即会自动注入基本 CURD-性能基本无损耗-直接面向对象操作</li>
@@ -475,12 +475,12 @@ package com.mashibing;import com.alibaba.druid.pool.DruidDataSource;import org.j
   },
   {
     title: "Maven Basics",
-    excerpt: "如何解决Jar包冲突-Maven是一个很好的选择",
+    excerpt: "Essential Maven guide for Java developers covering project structure, dependencies, plugins, lifecycle phases, and multi-module projects.",
     image: '/img/blog2.jpg',
     url: '/blog/2020-06-21-maven',
     date: 'June 21, 2020',
     category: 'Backend',
-    tags: ["Maven","项目管理"],
+    tags: ["Maven","Project Management"],
     slug: '2020-06-21-maven',
     content: `<p><h1>Maven的介绍与使用</h1></p><p><h3>1、Maven的简单介绍</h3></p><p>​ Maven是Apache下的项目管理工具-它由纯Java语言开发-可以帮助我们更方便的管理和构建Java项目。</p><p>​ Maven的优点</p><p>​ 1、 jar包管理：</p><p>​ a) 从Maven中央仓库获取标准的规范的jar包以及相关依赖的jar包-避免自己下载到错误的jar包；</p><p>​ b) 本地仓库统一管理jar包-使jar包与项目分离-减轻项目体积。</p><p>​ 2、 Maven是跨平台的可以在window、linux上使用。</p><p>​ 3、 清晰的项目结构；</p><p>​ 4、 多工程开发-将模块拆分成若干工程-利于团队协作开发。</p><p>​ 5、 一键构建项目：使用命令可以对项目进行一键构建。</p><p><h3>2、Maven的安装</h3></p><p>​ Maven官网：<a href="https://Maven.apache.org/">https://Maven.apache.org/</a></p><p>​ Maven仓库：<a href="https://mvnrepository.com/">https://mvnrepository.com/</a></p><p>​ 安装步骤：</p><p>\`\`<code>plain
 1、安装jdk2、从官网中下载对应的版本3、解压安装-然后配置环境变量-需要配置Maven_HOME,并且将bin目录添加到path路径下4、在命令行中输入mvn -v,看到版本信息表示安装成功
@@ -500,12 +500,12 @@ aliMavenaliyun Mavenhttp://Maven.aliyun.com/nexus/content/groups/public/central
   },
   {
     title: "GC Principles and JVM Tuning",
-    excerpt: "JVM垃圾回收原理及常见调优方式-常用OOM问题排查方法",
+    excerpt: "Master garbage collection algorithms and JVM performance tuning including heap sizing, GC selection, and monitoring techniques.",
     image: '/img/blog3.jpg',
     url: '/blog/2020-06-23-gcjvm',
     date: 'June 23, 2020',
     category: 'Java',
-    tags: ["JVM","GC","调优"],
+    tags: ["JVM","GC","Tuning"],
     slug: '2020-06-23-gcjvm',
     content: `<p><h1>GC 及 JVM Tuning</h1></p><p><h3>GC的基础知识</h3></p><p>#### 1.什么是垃圾</p><p><img src="/images/blog/image-20200514201439482.png" alt="illustration" class="my-4" /></p><p>> C语言申请内存：malloc free
 >
@@ -573,12 +573,12 @@ aliMavenaliyun Mavenhttp://Maven.aliyun.com/nexus/content/groups/public/central
   },
   {
     title: "Spring Cloud简介-Eureka和Actuator基本使用;",
-    excerpt: "微服务架构讲解-技术选型及架构演变分析",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog4.jpg',
     url: '/blog/2020-06-23-spring-cloud-eurekaactuator',
     date: 'June 23, 2020',
     category: 'Distributed Systems',
-    tags: ["Spring Cloud","框架","微服务"],
+    tags: ["Spring Cloud","Framework","Microservices"],
     slug: '2020-06-23-spring-cloud-eurekaactuator',
     content: `<p><h2>Spring Cloud</h2></p><p>Spring Cloud 自 2016 年 1 月发布第一个 Angel.SR5 版本-到目前 2020 年 3 月发布 Hoxton.SR3 版本-已经历经了 4 年时间。这 4 年时间里-Spring Cloud 一共发布了 46 个版本-支持的组件数从 5 个增加到 21 个。Spring Cloud 在 2019 年 12 月对外宣布后续 RoadMap：</p><p><li>下一个版本 Ilford 版本是一个大版本。这个版本基于 Spring Framework 5.3 & Spring Boot 2.4-会在 2020 Q4 左右发布；</li>
 <li>Ilford 版本会删除处于维护模式的项目。目前处于维护模式的 Netflix 大部分项目都会被删除（spring-cloud-netflix Github 项目已经删除了这些维护模式的项目）；</li>
@@ -613,12 +613,12 @@ Q：大师大师-服务拆多了怎么办？A：那就再合起来。Q：那太�
   },
   {
     title: "Distributed Transaction Solutions",
-    excerpt: "什么是两阶段提交-什么是三阶段提交-什么是柔性事务-什么是CAP和BASE理论",
+    excerpt: "Comprehensive overview of distributed transaction patterns including 2PC, TCC, Saga, and eventual consistency implementations.",
     image: '/img/blog5.jpg',
     url: '/blog/2020-07-02',
     date: 'July 2, 2020',
     category: 'Distributed Systems',
-    tags: ["分布式","分布式事务","总结"],
+    tags: ["Distributed","Distributed Transaction","Summary"],
     slug: '2020-07-02',
     content: `<p><h1>分布式事务</h1></p><p><strong>事务（Transaction）</strong>-一般是指要做的或所做的事情-由<strong>事务开始(begin transaction)</strong>和<strong>事务结束(end transaction)</strong>之间执行的全体操作组成。</p><p><strong>简单的讲就是-要么全部被执行-要么就全部失败。</strong></p><p>那<strong>分布式事务</strong>-自然就是运行在分布式系统中的事务-是由<strong>多个不同的机器上的事务组合而成</strong>的。同上-只有分布式系统中所有事务执行了才能是成功-否则失败。</p><p>事务的基本特征ACID：</p><p><li>原子性（Atomicity）</li>
   - 一个事务是一个不可分割的工作单位-事务中包括的诸操作要么都做-要么都不做。
@@ -648,12 +648,12 @@ PreCommit是一个缓冲-保证了在最后提交阶段之前各参与节点的�
   },
   {
     title: "MySQL Performance Tuning",
-    excerpt: "MySQL常用优化方法",
+    excerpt: "Complete MySQL tuning guide covering query optimization, index strategies, configuration parameters, and performance monitoring.",
     image: '/img/blog6.jpg',
     url: '/blog/2020-07-03-mysql',
     date: 'July 3, 2020',
     category: 'Database',
-    tags: ["MySQL"],
+    tags: ["MySQL","Database"],
     slug: '2020-07-03-mysql',
     content: `<p><h2>MySQL调优</h2></p><p>#### 1\. 性能监控</p><p>show profile</p><p>此工具默认是禁用的-可以通过服务器变量在绘画级别动态的修改</p><p><strong>set profiling=1;</strong></p><p>当设置完成之后-在服务器上执行的所有语句-都会测量其耗费的时间和其他一些查询执行状态变更相关的数据。</p><p><strong>select \* from emp;</strong></p><p>在mysql的命令行模式下只能显示两位小数的时间-可以使用如下命令查看具体的执行时间</p><p><strong>show profiles;</strong></p><p>执行如下命令可以查看详细的每个步骤的时间：</p><p><strong>show profile for query 1;</strong></p><p><img src="/images/blog/image-20200412073731890.png" alt="illustration" class="my-4" /></p><p>show profiles 查看执行时间  
 <img src="/images/blog/image-20200412074008668.png" alt="illustration" class="my-4" /></p><p>只精确到后两位</p><p>show profile 最近执行的sql , 每个步骤多长时间  
@@ -668,12 +668,12 @@ import java.sql.Connection;import java.sql.DriverManager;import java.sql.Prepare
   },
   {
     title: "Spring AOP Basics",
-    excerpt: "什么是面向切面编程？介绍AOP的常见使用场景",
+    excerpt: "Master Aspect-Oriented Programming in Spring including pointcuts, advice types, annotations, and practical cross-cutting concern examples.",
     image: '/img/blog1.jpg',
     url: '/blog/2020-07-04-spring-aop',
     date: 'July 4, 2020',
     category: 'Spring',
-    tags: ["框架","Spring","AOP"],
+    tags: ["Framework","Spring","AOP"],
     slug: '2020-07-04-spring-aop',
     content: `<p><h1>Spring AOP介绍与使用</h1></p><p>AOP：Aspect Oriented Programming 面向切面编程</p><p>OOP：Object Oriented Programming 面向对象编程</p><p>​ 面向切面编程：基于OOP基础之上新的编程思想-OOP面向的主要对象是类-而AOP面向的主要对象是切面-在处理日志、安全管理、事务管理等方面有非常重要的作用。AOP是Spring中重要的核心点-虽然IOC容器没有依赖AOP-但是AOP提供了非常强大的功能-用来对IOC做补充。通俗点说的话就是在程序运行期间-将<strong>某段代码动态切入</strong>到<strong>指定方法</strong>的<strong>指定位置</strong>进行运行的这种编程方式。</p><p><h3>1、AOP的概念</h3></p><p>##### 为什么要引入AOP?</p><p>Calculator.java</p><p>\`\`<code>java
 package com.oi.inter;public interface Calculator {    public int add(int i,int j);    public int sub(int i,int j);    public int mult(int i,int j);    public int div(int i,int j);}
@@ -695,12 +695,12 @@ package com.oi.proxy;import com.oi.inter.Calculator;import java.lang.reflect.Inv
   },
   {
     title: "ActiveMQ Deep Dive",
-    excerpt: "玩转ActiveMQ-看这一篇就够了！",
+    excerpt: "Complete ActiveMQ guide covering JMS concepts, message patterns, persistence, clustering, and integration with Spring.",
     image: '/img/blog2.jpg',
     url: '/blog/2020-07-12-activemq',
     date: 'July 12, 2020',
     category: 'Backend',
-    tags: ["消息队列-中间件-ActiveMQ"],
+    tags: ["Message Queue","ActiveMQ"],
     slug: '2020-07-12-activemq',
     content: `<p><h1>1\. 详细介绍</h1></p><p><h2>什么是JMS MQ</h2></p><p>全称：Java MessageService 中文：Java 消息服务。</p><p>JMS 是 Java 的一套 API 标准-最初的目的是为了使应用程序能够访问现有的 MOM 系 统（MOM 是 MessageOriented Middleware 的英文缩写-指的是利用高效可靠的消息传递机 制进行平台无关的数据交流-并基于数据通信来进行分布式系统的集成。） ；</p><p>后来被许多现有 的 MOM 供应商采用-并实现为 MOM 系统。【常见 MOM 系统包括 Apache 的 ActiveMQ、 阿里巴巴的 RocketMQ、IBM 的 MQSeries、Microsoft 的 MSMQ、BEA 的 RabbitMQ 等。 （并 非全部的 MOM 系统都遵循 JMS 规范）】</p><p>基于 JMS 实现的 MOM-又被称为 JMSProvider。</p><p>“消息”是在两台计算机间传送的数据单位。消息可以非常简单-例如只包含文本字符串； 也可以更复杂-可能包含嵌入对象。 消息被发送到队列中。</p><p>“消息队列”是在消息的传输过程中保存消息的容器。消息队列管 理器在将消息从它的源中继到它的目标时充当中间人。</p><p>队列的主要目的是提供路由并保证消 息的传递；如果发送消息时接收者不可用-消息队列会保留消息-直到可以成功地传递它。</p><p>消息队列的主要特点是异步处理-主要目的是减少请求响应时间和解耦。所以主要的使 用场景就是将比较耗时而且不需要即时（同步）返回结果的操作作为消息放入消息队列。同 时由于使用了消息队列-只要保证消息格式不变-消息的发送方和接收方并不需要彼此联系- 也不需要受对方的影响-即解耦和。如: 跨系统的异步通信-所有需要异步交互的地方都可以使用消息队列。就像我们除了打电 话（同步）以外-还需要发短信-发电子邮件（异步）的通讯方式。 多个应用之间的耦合-由于消息是平台无关和语言无关的-而且语义上也不再是函数调 用-因此更适合作为多个应用之间的松耦合的接口。基于消息队列的耦合-不需要发送方和 接收方同时在线。 在企业应用集成（EAI）中-文件传输-共享数据库-消息队列-远程过程调用都可以 作为集成的方法。 应用内的同步变异步-比如订单处理-就可以由前端应用将订单信息放到队列-后端应 用从队列里依次获得消息处理-高峰时的大量订单可以积压在队列里慢慢处理掉。由于同步 通常意味着阻塞-而大量线程的阻塞会降低计算机的性能。 消息驱动的架构（EDA）-系统分解为消息队列-和消息制造者和消息消费者-一个处 理流程可以根据需要拆成多个阶段（Stage） -阶段之间用队列连接起来-前一个阶段处理的 结果放入队列-后一个阶段从队列中获取消息继续处理。 应用需要更灵活的耦合方式-如发布订阅-比如可以指定路由规则。 跨局域网-甚至跨城市的通讯-比如北京机房与广州机房的应用程序的通信。</p><p><h2>消息中间件应用场景</h2></p><p><h3><strong>异步通信</strong></h3></p><p>有些业务不想也不需要立即处理消息。消息队列提供了异步处理机制-允许用户把一个消息放入队列-但并不立即处理它。想向队列中放入多少消息就放多少-然后在需要的时候再去处理它们。</p><p><h3><strong>缓冲</strong></h3></p><p>在任何重要的系统中-都会有需要不同的处理时间的元素。消息队列通过一个缓冲层来帮助任务最高效率的执行-该缓冲有助于控制和优化数据流经过系统的速度。以调节系统响应时间。</p><p><h3><strong>解耦</strong></h3></p><p>降低工程间的强依赖程度-针对异构系统进行适配。在项目启动之初来预测将来项目会碰到什么需求-是极其困难的。通过消息系统在处理过程中间插入了一个隐含的、基于数据的接口层-两边的处理过程都要实现这一接口-当应用发生变化时-可以独立的扩展或修改两边的处理过程-只要确保它们遵守同样的接口约束。</p><p><h3><strong>冗余</strong></h3></p><p>有些情况下-处理数据的过程会失败。除非数据被持久化-否则将造成丢失。消息队列把数据进行持久化直到它们已经被完全处理-通过这一方式规避了数据丢失风险。许多消息队列所采用的”插入-获取-删除”范式中-在把一个消息从队列中删除之前-需要你的处理系统明确的指出该消息已经被处理完毕-从而确保你的数据被安全的保存直到你使用完毕。</p><p><h3><strong>扩展性</strong></h3></p><p>因为消息队列解耦了你的处理过程-所以增大消息入队和处理的频率是很容易的-只要另外增加处理过程即可。不需要改变代码、不需要调节参数。便于分布式扩容。</p><p><h3><strong>可恢复性</strong></h3></p><p>系统的一部分组件失效时-不会影响到整个系统。消息队列降低了进程间的耦合度-所以即使一个处理消息的进程挂掉-加入队列中的消息仍然可以在系统恢复后被处理。</p><p><h3><strong>顺序保证</strong></h3></p><p>在大多使用场景下-数据处理的顺序都很重要。大部分消息队列本来就是排序的-并且能保证数据会按照特定的顺序来处理。</p><p><h3><strong>过载保护</strong></h3></p><p>在访问量剧增的情况下-应用仍然需要继续发挥作用-但是这样的突发流量无法提取预知；如果以为了能处理这类瞬间峰值访问为标准来投入资源随时待命无疑是巨大的浪费。使用消息队列能够使关键组件顶住突发的访问压力-而不会因为突发的超负荷的请求而完全崩溃。</p><p><h3><strong>数据流处理</strong></h3></p><p>分布式系统产生的海量数据流-如：业务日志、监控数据、用户行为等-针对这些数据流进行实时或批量采集汇总-然后进行大数据分析是当前互联网的必备技术-通过消息队列完成此类数据收集是最好的选择。</p><p><h2>常用消息队列（ActiveMQ、RabbitMQ、RocketMQ、Kafka）比较</h2></p><p>特性MQ</p><p>ActiveMQ</p><p>RabbitMQ</p><p>RocketMQ</p><p>Kafka</p><p>生产者消费者模式</p><p>支持</p><p>支持</p><p>支持</p><p>支持</p><p>发布订阅模式</p><p>支持</p><p>支持</p><p>支持</p><p>支持</p><p>请求回应模式</p><p>支持</p><p>支持</p><p>不支持</p><p>不支持</p><p>Api完备性</p><p>高</p><p>高</p><p>高</p><p>高</p><p>多语言支持</p><p>支持</p><p>支持</p><p>java</p><p>支持</p><p>单机吞吐量</p><p>万级</p><p>万级</p><p>万级</p><p>十万级</p><p>消息延迟</p><p>无</p><p>微秒级</p><p>毫秒级</p><p>毫秒级</p><p>可用性</p><p>高（主从）</p><p>高（主从）</p><p>非常高（分布式）</p><p>非常高（分布式）</p><p>消息丢失</p><p>低</p><p>低</p><p>理论上不会丢失</p><p>理论上不会丢失</p><p>文档的完备性</p><p>高</p><p>高</p><p>高</p><p>高</p><p>提供快速入门</p><p>有</p><p>有</p><p>有</p><p>有</p><p>社区活跃度</p><p>高</p><p>高</p><p>有</p><p>高</p><p>商业支持</p><p>无</p><p>无</p><p>商业云</p><p>商业云</p><p><h2>JMS中的一些角色</h2></p><p><h3><strong>Broker</strong></h3></p><p>消息服务器-作为server提供消息核心服务</p><p><h3>provider</h3></p><p>生产者</p><p>消息生产者是由会话创建的一个对象-用于把消息发送到一个目的地。</p><p><h3>Consumer</h3></p><p>消费者</p><p>消息消费者是由会话创建的一个对象-它用于接收发送到目的地的消息。消息的消费可以采用以下两种方法之一：</p><p><li>同步消费。通过调用消费者的receive方法从目的地中显式提取消息。receive方法可以一直阻塞到消息到达。</li>
 <li>异步消费。客户可以为消费者注册一个消息监听器-以定义在消息到达时所采取的动作。</li></p><p><h3>p2p</h3></p><p>基于点对点的消息模型</p><p>消息生产者生产消息发送到 queue 中-然后消息消费者从 queue 中取出并且消费消息。 消息被消费以后-queue 中不再有存储-所以消息消费者不可能消费到已经被消费的消  
@@ -714,12 +714,12 @@ Queue 支持存在多个消费者-但是对一个消息而言-只会有一个消
   },
   {
     title: "MySQL Index Data Structure Analysis",
-    excerpt: "为什么用B+树？分析各种树形结构的优缺点",
+    excerpt: "Understanding MySQL index internals including B+ tree structure, page organization, and how indexes accelerate query performance.",
     image: '/img/blog3.jpg',
     url: '/blog/2020-07-12-mysql',
     date: 'July 12, 2020',
     category: 'Database',
-    tags: ["MySQL"],
+    tags: ["MySQL","Database"],
     slug: '2020-07-12-mysql',
     content: `<p><h2>二叉树、B-Tree、B+Tree、红黑树、平衡二叉树（AVL Trees）</h2></p><p><h3>平衡二叉树 (AVL Trees)</h3></p><p>  平衡二叉树是一种特殊的二叉树-所以他也满足前面说到的二叉树的两个特性-同时还有一个特性：</p><p>​ 它的左右两个子树的高度差的绝对值不超过1-并且左右两个子树都是一棵平衡二叉树。</p><p>  大家也看到了前面\[35 27 48 12 29 38 55\]插入完成后的图-其实就已经是一颗平衡二叉树。</p><p>  那如果按照\[12 27 29 35 38 48 55\]的顺序插入一颗平衡二叉树-会怎么样呢？我们看看插入以及平衡的过程：</p><p><img src="http://cdn.17coding.info/WeChat%20Screenshot_20190616165744.png" alt="illustration" class="my-4" /> <img src="http://cdn.17coding.info/WeChat%20Screenshot_20190616165806.png" alt="illustration" class="my-4" /> !\<a href="MySQL索引数据结构分析/WeChat Screenshot_20190616165835.png">img\</a> !\<a href="MySQL索引数据结构分析/WeChat Screenshot_20190616165909.png">img\</a> !\<a href="MySQL索引数据结构分析/WeChat Screenshot_20190616165924.png">img\</a> !\<a href="MySQL索引数据结构分析/WeChat Screenshot_20190616165936.png">img\</a> !\<a href="MySQL索引数据结构分析/WeChat Screenshot_20190616165954.png">img\</a></p><p>  这棵树始终满足平衡二叉树的几个特性而保持平衡！这样我们的树也不会退化为线性链表了！我们需要查找一个数的时候就能沿着树根一直往下找-这样的查找效率和二分法查找是一样的呢！</p><p>  一颗平衡二叉树能容纳多少的结点呢？这跟树的高度是有关系的-假设树的高度为h-那每一层最多容纳的结点数量为2^(n-1)-整棵树最多容纳节点数为2^0+2^1+2^2+…+2^(h-1)。这样计算-100w数据树的高度大概在20左右-那也就是说从有着100w条数据的平衡二叉树中找一个数据-最坏的情况下需要20次查找。如果是内存操作-效率也是很高的！但是我们数据库中的数据基本都是放在磁盘中的-每读取一个二叉树的结点就是一次磁盘IO-这样我们找一条数据如果要经过20次磁盘的IO？那性能就成了一个很大的问题了！那我们是不是可以把这棵树压缩一下-让每一层能够容纳更多的节点呢？虽然我矮-但是我胖啊…</p><p><h3>B-Tree</h3></p><p>  这颗矮胖的树就是B-Tree-注意中间是杠精的杠而不是减-所以也不要读成B减Tree了~</p><p>  那B-Tree有哪些特性呢？一棵m阶的B-Tree有如下特性：</p><p>> 1、每个结点最多m个子结点。  
 > 2、除了根结点和叶子结点外-每个结点最少有m/2（向上取整）个子结点。  
@@ -758,7 +758,7 @@ Queue 支持存在多个消费者-但是对一个消息而言-只会有一个消
   },
   {
     title: "SpringBoot DataSource Configuration",
-    excerpt: "如何配置数据源、自定义数据源、动态切换数据源、整合MyBatis？",
+    excerpt: "Configure single and multiple data sources in Spring Boot with connection pooling, transaction management, and dynamic routing.",
     image: '/img/blog4.jpg',
     url: '/blog/2020-07-12-springboot',
     date: 'July 12, 2020',
@@ -783,7 +783,7 @@ package com.oi.contoller;import org.springframework.beans.factory.annotation.Aut
   },
   {
     title: "Spring MVC Source Code Analysis",
-    excerpt: "讲解请求处理、视图解析器、类型转换、日期格式转换和数据校验的具体实现",
+    excerpt: "Deep dive into Spring MVC internals covering DispatcherServlet, handler mappings, view resolvers, and request processing flow.",
     image: '/img/blog5.jpg',
     url: '/blog/2020-07-15-spring-mvc',
     date: 'July 15, 2020',
@@ -804,12 +804,12 @@ private void initHandlerMappings(ApplicationContext context) {		this.handlerMapp
   },
   {
     title: "Spring Boot Source Code Analysis",
-    excerpt: "Spring Boot核心源码讲解：启动、装配、运行、配置",
+    excerpt: "Understanding Spring Boot auto-configuration mechanism, starter dependencies, and application startup process internals.",
     image: '/img/blog6.jpg',
     url: '/blog/2020-07-19-spring-boot',
     date: 'July 19, 2020',
     category: 'Backend',
-    tags: ["框架","Spring Boot","源码"],
+    tags: ["Framework","Spring Boot","Source Code"],
     slug: '2020-07-19-spring-boot',
     content: `<p><h1>启动过程</h1></p><p><h3>1、springboot的入口程序</h3></p><p>\`\`<code>java
 @SpringBootApplicationpublic class StartupApplication {    public static void main(String[] args) {        SpringApplication.run(StartupApplication.class, args);    }}
@@ -827,7 +827,7 @@ StopWatch stopWatch = new StopWatch();stopWatch.start();//详细源代码public 
   },
   {
     title: "Advanced Spring MVC Usage",
-    excerpt: "讲解请求处理、文件上传下载、国际化和异常处理的具体实现",
+    excerpt: "Advanced Spring MVC features including interceptors, exception handling, file upload, async processing, and RESTful best practices.",
     image: '/img/blog1.jpg',
     url: '/blog/2020-07-20-spring-mvc-2',
     date: 'July 20, 2020',
@@ -851,12 +851,12 @@ package com.oi.controller;import com.oi.bean.User;import org.springframework.htt
   },
   {
     title: "Feign Principles and Usage",
-    excerpt: "微服务之间如何进行远程服务调用？",
+    excerpt: "Declarative REST client with Feign covering integration with Spring Cloud, load balancing, circuit breakers, and error handling.",
     image: '/img/blog2.jpg',
     url: '/blog/2020-07-23-feign',
     date: 'July 23, 2020',
     category: 'Backend',
-    tags: ["Spring Cloud","框架"],
+    tags: ["Spring Cloud","Framework"],
     slug: '2020-07-23-feign',
     content: `<p><h2>Feign</h2></p><p>OpenFeign是Netflix 开发的声明式、模板化的HTTP请求客户端。可以更加便捷、优雅地调用http api。</p><p>OpenFeign会根据带有注解的函数信息构建出网络请求的模板-在发送网络请求之前-OpenFeign会将函数的参数值设置到这些请求模板中。</p><p>feign主要是构建微服务消费端。只要使用OpenFeign提供的注解修饰定义网络请求的接口类-就可以使用该接口的实例发送RESTful的网络请求。还可以集成Ribbon和Hystrix-提供负载均衡和断路器。</p><p>英文表意为“假装-伪装-变形”- 是一个 Http 请求调用的轻量级框架-可以以 Java 接口注解的方式调用 Http 请求-而不用像 Java 中通过封装 HTTP 请求报文的方式直接调用。通过处理注解-将请求模板化-当实际调用的时候-传入参数-根据参数再应用到请求上-进而转化成真正的请求-这种请求相对而言比较直观。Feign 封装 了HTTP 调用流程-面向接口编程-回想第一节课的SOP。</p><p><h3>Feign和OpenFeign的关系</h3></p><p>Feign本身不支持Spring MVC的注解-它有一套自己的注解</p><p>OpenFeign是Spring Cloud 在Feign的基础上支持了Spring MVC的注解-如@RequesMapping等等。  
 OpenFeign的<code>@FeignClient</code>可以解析SpringMVC的@RequestMapping注解下的接口-  
@@ -892,12 +892,12 @@ package com.mashibing.UserConsumer;import org.springframework.boot.SpringApplica
   },
   {
     title: "Distributed Lock Solutions",
-    excerpt: "分布式锁千万级流量以上的项目-基本上都会用redis。 RedLock-redis创始人 比较提出的方案。 我们真的需要锁么？需要锁的条件：  多任务环境下。（进程-线程） 任务都对同一共享资源进行写操作。 对资源的访问是互斥的。  操作周期：  竞争锁。获取锁后才能对资源进行操作。 占有锁。操作中。 其他竞争者-任务阻塞。 占有锁者-释放锁。继续从1开始。  JVM 锁 解决不了分布式环境中的加",
+    excerpt: "Implementing distributed locks using Redis and Zookeeper with comparison of different approaches and failure handling strategies.",
     image: '/img/blog3.jpg',
     url: '/blog/2020-07-23',
     date: 'July 23, 2020',
     category: 'Distributed Systems',
-    tags: ["分布式","总结","分布式锁"],
+    tags: ["Distributed","Summary","Distributed Lock"],
     slug: '2020-07-23',
     content: `<p><h1>分布式锁</h1></p><p>千万级流量以上的项目-基本上都会用redis。</p><p>RedLock-redis创始人 比较提出的方案。</p><p><h2>我们真的需要锁么？</h2></p><p>需要锁的条件：</p><p><li> 多任务环境下。（进程-线程）</li>
 <li> 任务都对同一共享资源进行写操作。</li>
@@ -934,12 +934,12 @@ stringRedisTemplate 用法https://blog.csdn.net/zzz127333092/article/details/887
   },
   {
     title: "图解TCP/IP；",
-    excerpt: "什么是OSI七层参考模型？什么是TCP/IP协议？抓包看三次握手四次挥手！",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog4.jpg',
     url: '/blog/2020-07-23-tcp-ip',
     date: 'July 23, 2020',
     category: 'Backend',
-    tags: ["笔记","TCP-IP"],
+    tags: ["Notes","TCP-IP"],
     slug: '2020-07-23-tcp-ip',
     content: `<p>OSI七层参考模型</p><p><img src="/images/blog/Users\Anarchism\AppData\Roaming\Typora\typora-user-images\image-20200405195932930.png" alt="illustration" class="my-4" /> <img src="/images/blog/206633-2d6f4a3abcd59745.png" alt="illustration" class="my-4" /></p><p>HTTP协议</p><p><img src="/images/blog/Users\Anarchism\AppData\Roaming\Typora\typora-user-images\image-20200405200118533.png" alt="illustration" class="my-4" /></p><p><li> 应用层协议: HTTP协议, SSH协议</li></p><p>    应用层想建立通信, 先阻塞, 调内核, 告诉内核想和谁通信</p><p><li> 传输控制层, 如果是TCP协议, 制作一个握手的包, 制作之后阻塞, 调网络层</li>
 <li> 网络层触发路由条目判定, 拿着目标的IP地址, 从路由表(有网络层就有路由表)去找, 从哪个口出去合适(找到哪个下一跳合适), 调链路</li>
@@ -966,12 +966,12 @@ DNS: 域名解析</p><p>路由表
   },
   {
     title: "基于Redis的分布式锁实现原理",
-    excerpt: "什么是分布式锁？如何通过Redis实现分布式锁？",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog5.jpg',
     url: '/blog/2020-07-23-redis',
     date: 'July 23, 2020',
     category: 'Redis',
-    tags: ["Redis"],
+    tags: ["Redis","Cache"],
     slug: '2020-07-23-redis',
     content: `<p><h2>概述</h2></p><p>为了防止分布式系统中的多个进程之间相互干扰-我们需要一种分布式协调技术来对这些进程进行调度。而这个分布式协调技术的核心就是来实现这个<strong>分布式锁</strong>。</p><p><h2>为什么要使用分布式锁</h2></p><p><img src="https:////upload-images.jianshu.io/upload_images/7986413-7cc8f57c65d81728.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/874/format/webp" alt="illustration" class="my-4" /></p><p><li>成员变量 A 存在 JVM1、JVM2、JVM3 三个 JVM 内存中</li>
 <li>成员变量 A 同时都会在 JVM 分配一块内存-三个请求发过来同时对这个变量操作-显然结果是不对的</li>
@@ -1005,12 +1005,12 @@ if（threadId .equals(redisClient.get(key))）{    del(key)}
   },
   {
     title: "详解TCP/IP协议",
-    excerpt: "为什么三次握手-四次挥手？",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog6.jpg',
     url: '/blog/2020-07-23-tcp-ip',
     date: 'July 23, 2020',
     category: 'Backend',
-    tags: ["TCP-IP","网络"],
+    tags: ["TCP-IP","Network"],
     slug: '2020-07-23-tcp-ip',
     content: `<p><h2>脑图</h2></p><p><li> TCP 基本认识</li></p><p><img src="</images/blog/640(1" alt="illustration" class="my-4" />>)</p><p><li> TCP 连接建立</li></p><p><img src="</images/blog/640(2" alt="illustration" class="my-4" />>)</p><p><li> TCP 连接断开</li></p><p><img src="</images/blog/640(3" alt="illustration" class="my-4" />>)</p><p><li> Socket 编程</li></p><p><img src="</images/blog/640(4" alt="illustration" class="my-4" />>)</p><p>---</p><p><h2>正文</h2></p><p><h3>01 TCP 基本认识</h3></p><p>> 瞧瞧 TCP 头格式</p><p>我们先来看看 TCP 头的格式-标注颜色的表示与本文关联比较大的字段-其他字段不做详细阐述。</p><p><img src="</images/blog/640(5" alt="illustration" class="my-4" />>)TCP 头格式</p><p><strong>序列号</strong>：在建立连接时由计算机生成的随机数作为其初始值-通过 SYN 包传给接收端主机-每发送一次数据-就「累加」一次该「数据字节数」的大小。<strong>用来解决网络包乱序问题。</strong></p><p><strong>确认应答号</strong>：指下一次「期望」收到的数据的序列号-发送端收到这个确认应答以后可以认为在这个序号以前的数据都已经被正常接收。<strong>用来解决不丢包的问题。</strong></p><p><strong>控制位：</strong></p><p><li>_ACK_：该位为 <code>1</code> 时-「确认应答」的字段变为有效-TCP 规定除了最初建立连接时的 <code>SYN</code> 包之外该位必须设置为 <code>1</code> 。</li>
 <li>_RST_：该位为 <code>1</code> 时-表示 TCP 连接中出现异常必须强制断开连接。</li>
@@ -1038,7 +1038,7 @@ if（threadId .equals(redisClient.get(key))）{    del(key)}
   },
   {
     title: "Spring MVC处理器适配器的源码详解",
-    excerpt: "Spring MVC的重要组件之一——处理器适配器的详细处理过程",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog1.jpg',
     url: '/blog/2020-07-24-spring-mvc',
     date: 'July 24, 2020',
@@ -1058,12 +1058,12 @@ mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
   },
   {
     title: "LeetCode题解--括号配对",
-    excerpt: "括号配对问题详解",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog2.jpg',
     url: '/blog/2020-07-25-leetcode',
     date: 'July 25, 2020',
     category: 'Backend',
-    tags: ["算法"],
+    tags: ["Algorithm"],
     slug: '2020-07-25-leetcode',
     content: `<p>#### 括号配对</p><p>括号有效配对是指：  
 1）任何一个左括号都能找到和其正确配对的右括号  
@@ -1089,12 +1089,12 @@ public static boolean isValid(String s) {    if(s == null || s.length == 0) {   
   },
   {
     title: "RestTemplate和Ribbon原理及使用;",
-    excerpt: "什么是远程服务调用？什么是客户端的负载均衡？",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog3.jpg',
     url: '/blog/2020-07-26-resttemplateribbon',
     date: 'July 26, 2020',
     category: 'Backend',
-    tags: ["Spring Cloud","框架","笔记"],
+    tags: ["Spring Cloud","Framework","Notes"],
     slug: '2020-07-26-resttemplateribbon',
     content: `<p><h2>RestTemplate</h2></p><p><h3>依赖注入</h3></p><p>\`\`<code>plain
 @Bean// 开启负载均衡@LoadBalancedRestTemplate restTemplate() {	return new RestTemplate();}
@@ -1139,12 +1139,12 @@ public class LoggingClientHttpRequestInterceptor implements ClientHttpRequestInt
   },
   {
     title: "Zuul网关原理及使用",
-    excerpt: "Zuul的基本使用及原理分析",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog4.jpg',
     url: '/blog/2020-07-28-zuul',
     date: 'July 28, 2020',
     category: 'Distributed Systems',
-    tags: ["Spring Cloud","框架","微服务"],
+    tags: ["Spring Cloud","Framework","Microservices"],
     slug: '2020-07-28-zuul',
     content: `<p><h1>网关</h1></p><p>Starter阿里云镜像</p><p><a href="https://start.aliyun.com/">https://start.aliyun.com/</a></p><p><h2>概念</h2></p><p>微服务基本模块已经有了-也可以做微服务了。但完成一个复杂的业务-可能需要多个微服务合作来完成-比如下单-需要用户服务-支付服务-地图服务-订单服务。一般是我们对外服务的窗口-进行服务内外隔离。一般微服务都在内网-不做安全验证-</p><p>就好像：很多明星-可以独立开演唱会（独立提供服务）。也可以去春晚（微服务群提供服务）。但一台春晚就不能让 观众一个一个调用了。观众要调用-需要检票啥的-检票就类似于网关-进来之后-界面随便看-不会说你 看个小品-还需要再检票。</p><p>微服务没有网关-会有下面的问题：</p><p><li> 客户端请求多个微服务-增加了客户端复杂性-每个微服务都要做用户认证-限流等-避免和多个微服务打交道的复杂性。</li>
 <li> 有跨域问题-不在同一个域。</li>
@@ -1198,12 +1198,12 @@ pre来源uri：/api-driver/test/tokenpre拦截pre 业务逻辑 token:msb coolie
   },
   {
     title: "Sleuth链路追踪;",
-    excerpt: "如何追踪微服务之间的调用链路？Slueth + Zipkin基本使用",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog5.jpg',
     url: '/blog/2020-07-29-sleuth',
     date: 'July 29, 2020',
     category: 'Distributed Systems',
-    tags: ["Spring Cloud","框架","微服务"],
+    tags: ["Spring Cloud","Framework","Microservices"],
     slug: '2020-07-29-sleuth',
     content: `<p><h1>链路追踪</h1></p><p><h2>1 概念</h2></p><p><h3>分布式计算八大误区</h3></p><p>网络可靠。</p><p>延迟为零。</p><p>带宽无限。</p><p>网络绝对安全。</p><p>网络拓扑不会改变。</p><p>必须有一名管理员。</p><p>传输成本为零。</p><p>网络同质化。（操作系统-协议）</p><p><h3>链路追踪的必要性</h3></p><p>如果能跟踪每个请求-中间请求经过哪些微服务-请求耗时-网络延迟-业务逻辑耗时等。我们就能更好地分析系统瓶颈、解决系统问题。因此链路跟踪很重要。</p><p>> 《链路追踪》看看微服务之熵。</p><p>我们自己思考解决方案：在调用前后加时间戳。捕获异常。</p><p>链路追踪目的：解决错综复杂的服务调用中链路的查看。排查慢服务。</p><p>市面上链路追踪产品-大部分基于google的Dapper论文。</p><p>\`\`<code>sh
 zipkin,twitter开源的。是严格按照谷歌的Dapper论文来的。pinpoint 韩国的 Naver公司的。Cat 美团点评的EagleEye 淘宝的
@@ -1243,12 +1243,12 @@ http://localhost:6010/root/root
   },
   {
     title: "Hystrix原理及使用",
-    excerpt: "在微服务调用过程中-如何防止服务雪崩？如何服务降级？",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog6.jpg',
     url: '/blog/2020-08-03-hystrix',
     date: 'August 3, 2020',
     category: 'Distributed Systems',
-    tags: ["Spring Cloud","框架","微服务"],
+    tags: ["Spring Cloud","Framework","Microservices"],
     slug: '2020-08-03-hystrix',
     content: `<p><h1>Hystrix</h1></p><p><h2>1 概念：</h2></p><p><h3>概述</h3></p><p>​ 在分布式系统下-微服务之间不可避免地会发生相互调用-但每个系统都无法百分之百保证自身运行不出问题。在服务调用中-很可能面临依赖服务失效的问题（网络延时-服务异常-负载过大无法及时响应）。因此需要一个组件-能提供强大的容错能力-为服务间调用提供保护和控制。</p><p>我们的目的：<strong>_当我自身 依赖的服务不可用时-服务自身不会被拖垮。防止微服务级联异常_</strong>。</p><p>图。</p><p>本质：就是隔离坏的服务-不让坏服务拖垮其他服务（调用坏服务的服务）。</p><p>比如：武汉发生疫情-隔离它-不让依赖于武汉的地方感染。</p><p>和我们课程中熔断降级更贴切一点：北京从武汉招聘大学生-武汉有疫情了-当北京去武汉请求大学生来的时候-武汉熔断-然后北京启动自身的备用逻辑：去上海找大学生（降级）。</p><p><h3>舱壁模式</h3></p><p>舱壁模式（Bulkhead）隔离了每个工作负载或服务的关键资源-如连接池、内存和CPU-硬盘。每个工作单元都有独立的 连接池-内存-CPU。</p><p>使用舱壁避免了单个服务消耗掉所有资源-从而导致其他服务出现故障的场景。  
 这种模式主要是通过防止由一个服务引起的级联故障来增加系统的弹性。</p><p>据说泰坦尼克原因：泰坦尼克号上有16个防水舱-设计可以保障如果只有4个舱进水-密闭和隔离可以阻止水继续进入下一个防水舱-从而保证船的基本浮力。</p><p>但是当时冰山从侧面划破了船体-从而导致有5个防水舱同时进水-而为了建造豪华的头等舱大厅-也就是电影里杰克和罗斯约会的地方-5号舱的顶部并未达到密闭所需要的高度-水就一层层进入了船体-隔离的失败导致了泰坦尼克的沉没。</p><p>> 舱壁模式<img src="/images/blog/%E8%88%B1%E5%A3%81%E6%A8%A1%E5%BC%8F.png" alt="illustration" class="my-4" /></p><p>给我们的思路：可以对每个请求设置-单独的连接池-配置连接数-不要影响 别的请求。就像一个一个的防水舱。</p><p>对在公司中的管理也一样：给每个独立的 小组-分配独立的资源-比如产品-开发-测试。在小公司-大多数情况 这些资源都是共享的-有一个好处是充分利用资源-坏处是-如果一个项目延期-会影响别的项目推进。自己权衡利弊。</p><p>最近比较火的一句话： 真正的知识-是 产品提高一个等级和成本提高0.2元的 痛苦抉择。</p><p><h3>雪崩效应</h3></p><p>​ 每个服务 发出一个HTTP请求都会 在 服务中 开启一个新线程。而下游服务挂了或者网络不可达-通常线程会阻塞住-直到Timeout。如果并发量多一点-这些阻塞的线程就会占用大量的资源-很有可能把自己本身这个微服务所在的机器资源耗尽-导致自己也挂掉。</p><p>​ 如果服务提供者响应非常缓慢-那么服务消费者调用此提供者就会一直等待-直到提供者响应或超时。在高并发场景下-此种情况-如果不做任何处理-就会导致服务消费者的资源耗竭甚至整个系统的崩溃。一层一层的崩溃-导致所有的系统崩溃。</p><p>> 《雪崩示意图》<img src="/images/blog/%E9%9B%AA%E5%B4%A9%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="illustration" class="my-4" /></p><p>​ 雪崩：由基础服务故障导致级联故障的现象。描述的是：提供者不可用 导致消费者不可用-并将不可用逐渐放大的过程。像滚雪球一样-不可用的服务越来越多。影响越来越恶劣。</p><p>雪崩三个流程：</p><p>服务提供者不可用</p><p>重试会导致网络流量加大-更影响服务提供者。</p><p>导致服务调用者不可用-由于服务调用者 一直等待返回-一直占用系统资源。</p><p>（不可用的范围 被逐步放大）</p><p>服务不可用原因：</p><p>服务器宕机</p><p>网络故障</p><p>宕机</p><p>程序异常</p><p>负载过大-导致服务提供者响应慢</p><p>缓存击穿导致服务超负荷运行</p><p>总之 ： 基础服务故障 导致 级联故障 就是 雪崩。</p><p><h3>容错机制</h3></p><p><li> 为网络请求设置超时。</li></p><p>    必须为网络请求设置超时。一般的调用一般在几十毫秒内响应。如果服务不可用-或者网络有问题-那么响应时间会变很长。长到几十秒。</p><p>    每一次调用-对应一个线程或进程-如果响应时间长-那么线程就长时间得不到释放-而线程对应着系统资源-包括CPU,内存-得不到释放的线程越多-资源被消耗的越多-最终导致系统崩溃。</p><p>    因此必须设置超时时间-让资源尽快释放。</p><p><li> 使用断路器模式。</li></p><p>    想一下家里的保险丝-跳闸。如果家里有短路或者大功率电器使用-超过电路负载时-就会跳闸-如果不跳闸-电路烧毁-波及到其他家庭-导致其他家庭也不可用。通过跳闸保护电路安全-当短路问题-或者大功率问题被解决-在合闸。</p><p>    自己家里电路-不影响整个小区每家每户的电路。</p><p><h3>断路器</h3></p><p>\`\`<code>
@@ -1276,12 +1276,12 @@ http://localhost:6010/root/root
   },
   {
     title: "MySQL主从复制原理及配置",
-    excerpt: "主从复制的实现方式及具体落地方式",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog1.jpg',
     url: '/blog/2020-08-03-mysql',
     date: 'August 3, 2020',
     category: 'Database',
-    tags: ["MySQL"],
+    tags: ["MySQL","Database"],
     slug: '2020-08-03-mysql',
     content: `<p><h1>MySQL主从复制原理</h1></p><p><h3>0、为什么需要主从复制？</h3></p><p>1、在业务复杂的系统中-有这么一个情景-有一句sql语句需要锁表-导致暂时不能使用读的服务-那么就很影响运行中的业务-使用主从复制-让主库负责写-从库负责读-这样-即使主库出现了锁表的情景-通过读从库也可以保证业务的正常运作。</p><p>2、做数据的热备</p><p>3、架构的扩展。业务量越来越大-I/O访问频率过高-单机无法满足-此时做多库的存储-降低磁盘I/O访问的频率-提高单个机器的I/O性能。</p><p><h3>1、什么是MySQL的主从复制？</h3></p><p>​ MySQL 主从复制是指数据可以从一个MySQL数据库服务器主节点复制到一个或多个从节点。MySQL 默认采用异步复制方式-这样从节点不用一直访问主服务器来更新自己的数据-数据的更新可以在远程连接上进行-从节点可以复制主数据库中的所有数据库或者特定的数据库-或者特定的表。</p><p><h3>2、MySQL复制原理</h3></p><p>##### 原理：</p><p>​ （1）master服务器将数据的改变记录二进制binlog日志-当master上的数据发生改变时-则将其改变写入二进制日志中；</p><p>​ （2）slave服务器会在一定时间间隔内对master二进制日志进行探测其是否发生改变-如果发生改变-则开始一个I/OThread请求master二进制事件</p><p>​ （3）同时主节点为每个I/O线程启动一个dump线程-用于向其发送二进制事件-并保存至从节点本地的中继日志中-从节点将启动SQL线程从中继日志中读取二进制日志-在本地重放-使得其数据和主节点的保持一致-最后I/OThread和SQLThread将进入睡眠状态-等待下一次被唤醒。</p><p>##### 也就是说：</p><p><li>从库会生成两个线程,一个I/O线程,一个SQL线程;</li>
 <li>I/O线程会去请求主库的binlog,并将得到的binlog写到本地的relay-log(中继日志)文件中;</li>
@@ -1313,12 +1313,12 @@ http://localhost:6010/root/root
   },
   {
     title: "MySQL的MVCC原理及使用",
-    excerpt: "MySQL的版本并发控制原理",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog2.jpg',
     url: '/blog/2020-08-03-mysqlmvcc',
     date: 'August 3, 2020',
     category: 'Database',
-    tags: ["MySQL"],
+    tags: ["MySQL","Database"],
     slug: '2020-08-03-mysqlmvcc',
     content: `<p><h2>Mysql中MVCC的使用及原理</h2></p><p><h3>准备</h3></p><p>数据库默认隔离级别：<strong>RR（Repeatable Read-可重复读）-MVCC主要适用于Mysql的RC,RR隔离级别</strong></p><p>创建一张存储引擎为testmvcc的表-sql为:</p><p>\`\`<code>html
 CREATE TABLE testmvcc ( id int(11) DEFAULT NULL, name varchar(11) DEFAULT NULL) ENGINE=InnoDB
@@ -1342,12 +1342,12 @@ DEFAULT CHARSET=utf8;
   },
   {
     title: "MySQL的锁机制",
-    excerpt: "MyISAM和InnoDBd的锁机制",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog3.jpg',
     url: '/blog/2020-08-03-mysql',
     date: 'August 3, 2020',
     category: 'Database',
-    tags: ["MySQL"],
+    tags: ["MySQL","Database"],
     slug: '2020-08-03-mysql',
     content: `<p><h1>MySQL的锁机制</h1></p><p><h3>1、MySQL锁</h3></p><p>​ <strong>锁是计算机协调多个进程或线程并发访问某一资源的机制。</strong>在数据库中-除传统的 计算资源（如CPU、RAM、I/O等）的争用以外-数据也是一种供许多用户共享的资源。如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一 个问题-锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说-锁对数据库而言显得尤其重要-也更加复杂。</p><p>​ 相对其他数据库而言-MySQL的锁机制比较简单-其最 显著的特点是不同的<strong>存储引擎</strong>支持不同的锁机制。比如-MyISAM和MEMORY存储引擎采用的是表级锁（table-level locking）；InnoDB存储引擎既支持行级锁（row-level locking）-也支持表级锁-但默认情况下是采用行级锁。</p><p>​ <strong>表级锁：</strong>开销小-加锁快；不会出现死锁；锁定粒度大-发生锁冲突的概率最高-并发度最低。  
 ​ <strong>行级锁：</strong>开销大-加锁慢；会出现死锁；锁定粒度最小-发生锁冲突的概率最低-并发度也最高。</p><p>​ 从上述特点可见-很难笼统地说哪种锁更好-只能就具体应用的特点来说哪种锁更合适！仅从锁的角度 来说：表级锁更适合于以查询为主-只有少量按索引条件更新数据的应用-如Web应用；而行级锁则更适合于有大量按索引条件并发更新少量不同数据-同时又有 并发查询的应用-如一些在线事务处理（OLTP）系统。</p><p><h3>2、MyISAM表锁</h3></p><p>MySQL的表级锁有两种模式：<strong>表共享读锁（Table Read Lock）</strong>和<strong>表独占写锁（Table Write Lock）</strong>。</p><p>对MyISAM表的读操作-不会阻塞其他用户对同一表的读请求-但会阻塞对同一表的写请求；对 MyISAM表的写操作-则会阻塞其他用户对同一表的读和写操作；MyISAM表的读操作与写操作之间-以及写操作之间是串行的！</p><p>建表语句：</p><p>\`\`<code>sql
@@ -1391,12 +1391,12 @@ mysql> show status like 'table%';+-----------------------+-------+| Variable_nam
   },
   {
     title: "MySQL练习题",
-    excerpt: "50个常见SQL语句练习",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog4.jpg',
     url: '/blog/2020-08-03-mysql',
     date: 'August 3, 2020',
     category: 'Database',
-    tags: ["MySQL"],
+    tags: ["MySQL","Database"],
     slug: '2020-08-03-mysql',
     content: `<p><h2>MySQL练习题</h2></p><p><h3>1、表结构</h3></p><p>\`\`<code>plain
 –1.学生表 Student(s_id,s_name,s_birth,s_sex) –学生编号,学生姓名, 出生年月,学生性别 –2.课程表 Course(c_id,c_name,t_id) – –课程编号, 课程名称, 教师编号 –3.教师表 Teacher(t_id,t_name) –教师编号,教师姓名 –4.成绩表 Score(s_id,c_id,s_score) –学生编号,课程编号,分数
@@ -1410,12 +1410,12 @@ mysql> show status like 'table%';+-----------------------+-------+| Variable_nam
   },
   {
     title: "MySQL读写分离",
-    excerpt: "MySQL读写分离机制和具体配置",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog5.jpg',
     url: '/blog/2020-08-03-mysql',
     date: 'August 3, 2020',
     category: 'Database',
-    tags: ["MySQL"],
+    tags: ["MySQL","Database"],
     slug: '2020-08-03-mysql',
     content: `<p><h2>MySQL读写分离</h2></p><p><h3>1、读写分离的介绍</h3></p><p><img src="/images/blog/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB.jpg" alt="illustration" class="my-4" /></p><p>​ MySQL读写分离基本原理是让master数据库处理写操作-slave数据库处理读操作。master将写操作的变更同步到各个slave节点。</p><p>​ MySQL读写分离能提高系统性能的原因在于：</p><p>​ 1、物理服务器增加-机器处理能力提升。拿硬件换性能。</p><p>​ 2、主从只负责各自的读和写-极大程度缓解X锁 (排它锁) 和S锁 (共享锁) 争用。</p><p>​ 3、slave可以配置myiasm引擎-提升查询性能以及节约系统开销。</p><p>​ 4、master直接写是并发的-slave通过主库发送来的binlog恢复数据是异步。</p><p>​ 5、slave可以单独设置一些参数来提升其读的性能。</p><p>​ 6、增加冗余-提高可用性。</p><p><h3>2、读写分离的配置</h3></p><p>##### 1、硬件配置</p><p>\`\`<code>plain
 master 192.168.85.11slave  192.168.85.12proxy  192-168.85.14
@@ -1430,7 +1430,7 @@ master 192.168.85.11slave  192.168.85.12proxy  192-168.85.14
   },
   {
     title: "异常及常用类知识点",
-    excerpt: "异常及常用类常用知识点总结",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog6.jpg',
     url: '/blog/2020-08-03',
     date: 'August 3, 2020',
@@ -1450,7 +1450,7 @@ master 192.168.85.11slave  192.168.85.12proxy  192-168.85.14
   },
   {
     title: "集合框架知识点整理",
-    excerpt: "常用知识点总结",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog1.jpg',
     url: '/blog/2020-08-03',
     date: 'August 3, 2020',
@@ -1476,12 +1476,12 @@ master 192.168.85.11slave  192.168.85.12proxy  192-168.85.14
   },
   {
     title: "Spring AOP应用之——声明式事务",
-    excerpt: "Spring AOP是如何实现声明式事务的？介绍声明式事务的基本配置",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog2.jpg',
     url: '/blog/2020-08-04-spring-aop',
     date: 'August 4, 2020',
     category: 'Spring',
-    tags: ["框架","Spring","AOP"],
+    tags: ["Framework","Spring","AOP"],
     slug: '2020-08-04-spring-aop',
     content: `<p><h1>Spring AOP的应用配置</h1></p><p><h3>1、Spring JdbcTemplate</h3></p><p>​ 在spring中为了更加方便的操作JDBC-在JDBC的基础之上定义了一个抽象层-此设计的目的是为不同类型的JDBC操作提供模板方法-每个模板方法都能控制整个过程-并允许覆盖过程中的特定任务-通过这种方式-可以尽可能保留灵活性-将数据库存取的工作量讲到最低。</p><p>##### 1、配置并测试数据源</p><p>pom.xml</p><p>\`\`<code>xml
     4.0.0    com.oi    spring_demo    1.0-SNAPSHOT                                org.springframework            spring-context            5.2.3.RELEASE                                    com.alibaba            druid            1.1.21                                    mysql            mysql-connector-java            5.1.47                                    cglib            cglib            3.3.0                                    org.aspectj            aspectjweaver            1.9.5                                    aopalliance            aopalliance            1.0                                    org.springframework            spring-aspects            5.2.3.RELEASE
@@ -1505,7 +1505,7 @@ import com.oi.bean.Emp;import org.springframework.context.ApplicationContext;imp
   },
   {
     title: "Spring MVC的介绍及使用",
-    excerpt: "什么是Spring MVC?如何通过xml或注解进行性相关配置？",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog3.jpg',
     url: '/blog/2020-08-04-spring-mvc',
     date: 'August 4, 2020',
@@ -1539,7 +1539,7 @@ Spring Web MVC is the original web framework built on the Servlet API and has be
   },
   {
     title: "Advanced Spring MVC Usage",
-    excerpt: "讲解请求处理、视图解析器、类型转换、日期格式转换和数据校验的具体实现",
+    excerpt: "Advanced Spring MVC features including interceptors, exception handling, file upload, async processing, and RESTful best practices.",
     image: '/img/blog4.jpg',
     url: '/blog/2020-08-04-spring-mvc-1',
     date: 'August 4, 2020',
@@ -1562,12 +1562,12 @@ package com.oi.bean;public class Address {    private String province;    privat
   },
   {
     title: "两种动态代理实现——JDK与CGLib",
-    excerpt: "两种动态代理的区别是什么？Spring AOP的底层原理是哪种代理？",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog5.jpg',
     url: '/blog/2020-08-04-jdkcglib',
     date: 'August 4, 2020',
     category: 'Backend',
-    tags: ["动态代理","CGLib","JDK"],
+    tags: ["Dynamic Proxy","CGLib","JDK"],
     slug: '2020-08-04-jdkcglib',
     content: `<p><h1>两种动态代理</h1></p><p><h3>1、jdk的动态代理</h3></p><p>​ 讲一下动态代理的实现原理-说明白原理的话肯定是要看源码了-不要慌-干就完了！！！</p><p>​ 其实在使用动态代理的时候最最核心的就是Proxy.newProxyInstance(loader, interfaces, h);废话不多说-直接干源码。</p><p><strong>动态代理的样例代码：</strong></p><p>Calculator.java</p><p>\`\`<code>java
 package com.oi;public interface Calculator {    public int add(int i, int j);    public int sub(int i, int j);    public int mult(int i, int j);    public int div(int i, int j);}
@@ -1587,12 +1587,12 @@ private static Class getProxyClass0(ClassLoader loader,                         
   },
   {
     title: "Eureka注册中心详解",
-    excerpt: "Eureka原理源码-集群搭建",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog6.jpg',
     url: '/blog/2020-08-13-eureka',
     date: 'August 13, 2020',
     category: 'Distributed Systems',
-    tags: ["Spring Cloud","框架","微服务"],
+    tags: ["Spring Cloud","Framework","Microservices"],
     slug: '2020-08-13-eureka',
     content: `<p><h2>1 Eureka 单节点搭建</h2></p><p><li> pom.xml</li></p><p>    \`\`<code>sh
     	org.springframework.cloud	spring-cloud-starter-netflix-eureka-server有的教程中还引入spring-boot-starter-web-其实不用。因为上面的依赖已经包含了它。在pom中点此依赖进去-一共点4次spring-cloud-netflix-eureka-server-发现web的依赖。
@@ -1635,12 +1635,12 @@ eureka:   client:    #设置服务注册中心的URL    service-url:            
   },
   {
     title: "MySQL执行计划详解",
-    excerpt: "MySQL执行计划中各字段解析",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog1.jpg',
     url: '/blog/2020-08-13-mysql',
     date: 'August 13, 2020',
     category: 'Database',
-    tags: ["MySQL"],
+    tags: ["MySQL","Database"],
     slug: '2020-08-13-mysql',
     content: `<p><h1>MySQL执行计划详解</h1></p><p>​ 在企业的应用场景中-为了知道优化SQL语句的执行-需要查看SQL语句的具体执行过程-以加快SQL语句的执行效率。</p><p>​ 可以使用explain+SQL语句来模拟优化器执行SQL查询语句-从而知道mysql是如何处理sql语句的。</p><p>​ 官网地址： <a href="https://dev.mysql.com/doc/refman/5.5/en/explain-output.html">https://dev.mysql.com/doc/refman/5.5/en/explain-output.html</a></p><p><strong>执行计划中的信息</strong></p><p>Column</p><p>Meaning</p><p>id</p><p>查询中执行select子句或者操作表的顺序</p><p>select_type</p><p>是普通查询还是联合查询还是子查询</p><p>table</p><p>访问的表名或者别名-可能是临时表或者union合并结果集</p><p>type</p><p>数据扫描形式</p><p>possible_keys</p><p>显示可能应用在这张表中的索引-一个或多个</p><p>key</p><p>实际使用的索引-如果为null-则没有使用索引</p><p>key_len</p><p>索引中使用的字节数-在不损失精度的情况下长度越短越好。</p><p>ref</p><p>显示索引的哪一列被使用了-如果可能的话-是一个常数</p><p>rows</p><p>大致估算出找出所需记录需要读取的行数</p><p>filtered</p><p>Percentage of rows filtered by table condition</p><p>extra</p><p>Additional information</p><p><code>select_type</code> Value</p><p>Meaning</p><p>SIMPLE</p><p>Simple SELECT (not using UNION or subqueries)</p><p>PRIMARY</p><p>Outermost SELECT</p><p>UNION</p><p>Second or later SELECT statement in a UNION</p><p>DEPENDENT UNION</p><p>Second or later SELECT statement in a UNION, dependent on outer query</p><p>UNION RESULT</p><p>Result of a UNION.</p><p>SUBQUERY</p><p>First SELECT in subquery</p><p>DEPENDENT SUBQUERY</p><p>First SELECT in subquery, dependent on outer query</p><p>DERIVED</p><p>Derived table</p><p>UNCACHEABLE SUBQUERY</p><p>A subquery for which the result cannot be cached and must be re-evaluated for each row of the outer query</p><p>UNCACHEABLE UNION</p><p>The second or later select in a UNION that belongs to an uncacheable subquery (see UNCACHEABLE SUBQUERY)</p><p><strong>id</strong></p><p>select查询的序列号-包含一组数字-表示查询中执行select子句或者操作表的顺序</p><p>id号分为三种情况：</p><p>​ 1、如果id相同-那么执行顺序从上到下</p><p>\`\`<code>sql
 explain select * from emp e join dept d on e.deptno = d.deptno join salgrade sg on e.sal between sg.losal and sg.hisal;
@@ -1659,12 +1659,12 @@ explain select * from emp e join dept d on e.deptno = d.deptno join salgrade sg 
   },
   {
     title: "Spring原理讲解",
-    excerpt: "Spring是一个开源框架-Spring是一个轻量级的Java 开发框架。它是为了解决企业应用开发的复杂性而创建的。框架的主要优势之一就是其分层架构-分层架构允许使用者选择使用哪一个组件-同时为 J2EE 应用程序开发提供集成的框架。",
+    excerpt: "In-depth technical analysis with code examples and enterprise best practices.",
     image: '/img/blog2.jpg',
     url: '/blog/2020-08-24-spring',
     date: 'August 24, 2020',
     category: 'Spring',
-    tags: ["框架","Spring"],
+    tags: ["Framework","Spring"],
     slug: '2020-08-24-spring',
     content: `<p><h1>Spring原理讲解</h1></p><p><h3>1、什么是Spring框架-Spring框架主要包含哪些模块</h3></p><p>​ Spring是一个开源框架-Spring是一个轻量级的Java 开发框架。它是为了解决企业应用开发的复杂性而创建的。框架的主要优势之一就是其分层架构-分层架构允许使用者选择使用哪一个组件-同时为 J2EE 应用程序开发提供集成的框架。Spring使用基本的JavaBean来完成以前只可能由EJB完成的事情。然而-Spring的用途不仅限于服务器端的开发。从简单性、可测试性和松耦合的角度而言-任何Java应用都可以从Spring中受益。Spring的核心是控制反转（IoC）和面向切面（AOP）。简单来说-Spring是一个分层的full-stack(一站式) 轻量级开源框架。</p><p>主要包含的模块：</p><p><img src="/images/blog/spring-overview.png" alt="illustration" class="my-4" /></p><p><h3>2、Spring框架的优势</h3></p><p>​ 1、Spring通过DI、AOP和消除样板式代码来简化企业级Java开发</p><p>​ 2、Spring框架之外还存在一个构建在核心框架之上的庞大生态圈-它将Spring扩展到不同的领域-如Web服务、REST、移动开发以及NoSQL</p><p>​ 3、低侵入式设计-代码的污染极低</p><p>​ 4、独立于各种应用服务器-基于Spring框架的应用-可以真正实现Write Once,Run Anywhere的承诺</p><p>​ 5、Spring的IoC容器降低了业务对象替换的复杂性-提高了组件之间的解耦</p><p>​ 6、Spring的AOP允许将一些通用任务如安全、事务、日志等进行集中式处理-从而提供了更好的复用</p><p>​ 7、Spring的ORM和DAO提供了与第三方持久层框架的的良好整合-并简化了底层的数据库访问</p><p>​ 8、Spring的高度开放性-并不强制应用完全依赖于Spring-开发者可自由选用Spring框架的部分或全部</p><p><h3>3、IOC和DI是什么？</h3></p><p>​ 控制反转是就是应用本身不负责依赖对象的创建和维护,依赖对象的创建及维护是由外部容器负责的,这样控制权就有应用转移到了外部容器,控制权的转移就是控制反转。</p><p>​ 依赖注入是指:在程序运行期间,由外部容器动态地将依赖对象注入到组件中如：一般-通过构造函数注入或者setter注入。</p><p><h3>4、描述下Spring IOC容器的初始化过程</h3></p><p>​ Spring IOC容器的初始化简单的可以分为三个过程：</p><p>​ 第一个过程是Resource资源定位。这个Resouce指的是BeanDefinition的资源定位。这个过程就是容器找数据的过程-就像水桶装水需要先找到水一样。</p><p>​ 第二个过程是BeanDefinition的载入过程。这个载入过程是把用户定义好的Bean表示成Ioc容器内部的数据结构-而这个容器内部的数据结构就是BeanDefition。</p><p>​ 第三个过程是向IOC容器注册这些BeanDefinition的过程-这个过程就是将前面的BeanDefition保存到HashMap中的过程。</p><p><h3>5、BeanFactory 和 FactoryBean的区别？</h3></p><p><li><strong>BeanFactory</strong>是个Factory-也就是IOC容器或对象工厂-在Spring中-所有的Bean都是由BeanFactory(也就是IOC容器)来进行管理的-提供了实例化对象和拿对象的功能。</li></p><p>  使用场景：
   - 从Ioc容器中获取Bean(byName or byType)
