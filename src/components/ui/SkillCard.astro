@@ -23,10 +23,11 @@ const { skills, technologies } = Astro.props as Props;
           <span class="text-gray-300">{skill.name}</span>
           <span class="text-gray-400 text-sm">{skill.percentage}%</span>
         </div>
-        <div class="h-2 bg-gray-700 rounded-full">
+        <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
           <div
-            class="progress-fill h-full bg-gradient-to-r from-green-400 to-green-500 rounded-full"
+            class="progress-fill h-full bg-gradient-to-r from-green-400 to-green-500 rounded-full transition-all duration-1000 ease-out"
             data-progress={skill.percentage}
+            style={`width: ${skill.percentage}%`}
           ></div>
         </div>
       </div>
