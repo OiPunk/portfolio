@@ -2,17 +2,19 @@
 interface Props {
   type: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search' | 'date';
   id: string;
+  name?: string;
   placeholder?: string;
   required?: boolean;
   xModel?: string;
 }
 
-const { type, id, placeholder, required, xModel } = Astro.props as Props;
+const { type, id, name, placeholder, required, xModel } = Astro.props as Props;
 ---
 
 <input
   type={type}
   id={id}
+  name={name || id}
   placeholder={placeholder}
   required={required}
   x-model={xModel}

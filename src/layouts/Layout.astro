@@ -5,8 +5,14 @@ import FooterSection from '../components/FooterSection.astro';
 
 export interface Props {
   title?: string;
+  description?: string;
 }
-const { title = "Weiguang Li - Java Backend Developer" } = Astro.props as Props;
+const {
+  title = "Weiguang Li - Java Backend Developer",
+  description = "Java Backend Engineer specializing in Spring Boot, distributed systems, and microservices. Explore my projects, technical blog, and expertise."
+} = Astro.props as Props;
+const siteUrl = "https://oipunk.github.io/portfolio";
+const ogImage = `${siteUrl}/img/og-image.jpg`;
 ---
 
 <!DOCTYPE html>
@@ -15,7 +21,26 @@ const { title = "Weiguang Li - Java Backend Developer" } = Astro.props as Props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png" />
+    <meta name="description" content={description} />
+    <meta name="keywords" content="Java, Spring Boot, Backend Developer, Microservices, Distributed Systems, MySQL, Redis, Docker, Kubernetes" />
+    <meta name="author" content="Weiguang Li" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={siteUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="shortcut icon" type="image/x-icon" href="/portfolio/img/favicon.png" />
     <link
       href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;700;900&display=swap"
       rel="stylesheet"
@@ -24,6 +49,15 @@ const { title = "Weiguang Li - Java Backend Developer" } = Astro.props as Props;
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
       rel="stylesheet"
     />
+
+    <!-- Google Analytics -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
   </head>
   <body class="bg-gray-950 text-gray-100 font-sans">
     <Header />
