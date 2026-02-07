@@ -1,4 +1,15 @@
 @import "tailwindcss";
+
+/* Nerd Font for terminal icons */
+@font-face {
+  font-family: 'Symbols Nerd Font';
+  src: url('https://cdn.jsdelivr.net/gh/ryanoasis/nerd-fonts@v3.1.1/patched-fonts/NerdFontsSymbolsOnly/SymbolsNerdFontMono-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+.nerd-icon {
+  font-family: 'Symbols Nerd Font', monospace;
+}
 @theme {
     --font-sans: 'Inter', sans-serif;
     --font-code: 'Fira Code', monospace;
