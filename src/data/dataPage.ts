@@ -12,11 +12,11 @@ export interface PageData {
 export const pageData: PageData = {
   documentation: {
     title: "Documentation",
-    subtitle: "A comprehensive guide to setting up and customizing the DevPro Tailwind Web Developer Portfolio Template.",
+    subtitle: "A comprehensive guide to setting up and customizing the Weiguang Li Portfolio Tailwind Web Developer Portfolio Template.",
     lastUpdated: "May 18, 2025",
     content: `
       <h2>Setup and Installation</h2>
-      <p>Follow these steps to get DevPro up and running on your local machine.</p>
+      <p>Follow these steps to get Weiguang Li Portfolio up and running on your local machine.</p>
       <h3>1: Prepare Your Tools</h3>
       <p>Ensure you have the following tools installed:</p>
       <ul>
@@ -25,7 +25,7 @@ export const pageData: PageData = {
         <li><a href="https://code.visualstudio.com" target="_blank">Visual Studio Code</a> or your preferred code editor</li>
       </ul>
       <h3>2: Open the Project</h3>
-      <p>Unzip the DevPro template and open the <code>devpro</code> folder in your code editor.</p>
+      <p>Unzip the Weiguang Li Portfolio template and open the <code>devpro</code> folder in your code editor.</p>
       <code>cd devpro</code>
       <h3>3: Install and Run</h3>
       <p>Install dependencies: <code>npm install</code></p>
@@ -34,7 +34,7 @@ export const pageData: PageData = {
       <p>To build for production: <code>npm run build</code></p>
       <p>The production-ready files will be generated in the <code>dist</code> folder.</p>
       <h2>Customization</h2>
-      <p>DevPro is built with Tailwind CSS, offering flexible customization options. Modify the template as follows:</p>
+      <p>Weiguang Li Portfolio is built with Tailwind CSS, offering flexible customization options. Modify the template as follows:</p>
       <h4>Custom Tailwind Classes:</h4>
       <p>Add or modify Tailwind classes directly in the <code>src/*.astro</code> files to adjust styling.</p>
       <h4>Modify Tailwind Configuration:</h4>
@@ -80,7 +80,7 @@ export const pageData: PageData = {
       <h4>Replace Images:</h4>
       <p>Update images in the <code>public/img</code> folder with your own assets. Ensure file names and paths match those referenced in the HTML.</p>
       <h2>Need Help?</h2>
-      <p>If you encounter issues or have questions about customizing DevPro, our support team is here to assist: <a href="mailto:Lightestcode@gmail.com">Lightestcode@gmail.com</a></p>
+      <p>If you encounter issues or have questions about customizing Weiguang Li Portfolio, our support team is here to assist: <a href="mailto:Lightestcode@gmail.com">Lightestcode@gmail.com</a></p>
     `,
   },
   privacy: {
