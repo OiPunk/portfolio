@@ -6,12 +6,12 @@ export function GET(context: APIContext) {
   return rss({
     title: 'Weiguang Li - Tech Blog',
     description: 'Java Backend Engineering insights covering Spring Boot, distributed systems, microservices, and software architecture.',
-    site: context.site ?? 'https://oipunk.github.io/portfolio',
+    site: context.site ?? 'https://oipunk.github.io',
     items: blogItems.map((post) => ({
       title: post.title,
       pubDate: new Date(post.date),
       description: post.excerpt,
-      link: `/portfolio/blog/${post.slug}`,
+      link: `/blog/${post.slug}`,
       categories: post.tags,
     })),
     customData: `<language>en-us</language>`,
