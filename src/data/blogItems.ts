@@ -38,6 +38,133 @@ const defaultAuthor: Author = {
 
 export const blogItems: BlogItemType[] = [
   {
+    title: "RAG in Production: From Prototype to High-Trust AI",
+    excerpt: "A practical, engineering-first guide to Retrieval-Augmented Generation covering architecture, chunking, hybrid retrieval, prompt grounding, and evaluation loops.",
+    image: '/img/rag-cover.svg',
+    url: '/blog/2026-02-17-rag-practical-guide',
+    date: 'February 17, 2026',
+    category: 'AI',
+    tags: ["RAG", "LLM", "Vector Search", "AI Engineering"],
+    slug: '2026-02-17-rag-practical-guide',
+    content: `
+<h1>RAG in Production: From Prototype to High-Trust AI</h1>
+<p>Large language models are impressive, but raw generation alone is not enough for production systems. In business settings, users need answers that are current, source-grounded, and auditable. This is exactly where Retrieval-Augmented Generation (RAG) becomes a core architecture rather than an optional add-on.</p>
+<p>In this article, we will walk through RAG from first principles to production trade-offs. The goal is simple: keep the explanation accessible while giving enough engineering depth to ship confidently.</p>
+
+<figure>
+  <img src="/img/rag-cover.svg" alt="RAG architecture overview" class="my-4" />
+  <figcaption>RAG combines retrieval quality, prompt design, and evaluation discipline.</figcaption>
+</figure>
+
+<h2>1. Why RAG Exists</h2>
+<p>A standalone LLM has three common limitations in real-world products:</p>
+<ul>
+  <li><strong>Knowledge staleness</strong>: model parameters do not automatically include your latest internal docs.</li>
+  <li><strong>Hallucination risk</strong>: confident but unsupported statements can damage trust quickly.</li>
+  <li><strong>Weak traceability</strong>: teams cannot easily verify where an answer came from.</li>
+</ul>
+<p>RAG addresses these by injecting relevant external context at inference time. Instead of asking the model to guess, we ask it to reason over retrieved evidence.</p>
+
+<h2>2. Mental Model: RAG Is a Data System, Not Just a Prompt Trick</h2>
+<p>A common beginner mistake is to treat RAG as “vector search + one prompt template”. In production, RAG is better modeled as a data and feedback system with distinct stages:</p>
+<ol>
+  <li>Ingest and normalize source documents.</li>
+  <li>Chunk content into retrieval-friendly units.</li>
+  <li>Embed and index chunks for fast candidate recall.</li>
+  <li>Retrieve and rerank context for each query.</li>
+  <li>Generate an answer with citations and policy constraints.</li>
+  <li>Evaluate outcomes and feed failures back into the pipeline.</li>
+</ol>
+
+<figure>
+  <img src="/img/rag-pipeline.svg" alt="RAG pipeline lifecycle" class="my-4" />
+  <figcaption>A production RAG lifecycle from ingestion to measurable quality control.</figcaption>
+</figure>
+
+<h2>3. Chunking Strategy: The First Big Quality Lever</h2>
+<p>Most RAG quality issues start before retrieval, at chunking time. If chunks are too short, semantic meaning is fragmented. If chunks are too long, relevance ranking degrades and context windows are wasted.</p>
+<p>Practical guidance:</p>
+<ul>
+  <li>Use structure-aware splitting when possible (headings, sections, code blocks).</li>
+  <li>Use overlap conservatively to preserve continuity at boundaries.</li>
+  <li>Store rich metadata (source, timestamp, section title, permissions).</li>
+  <li>Preserve a canonical document link for every chunk.</li>
+</ul>
+<p>A robust default for knowledge-heavy text is to start with semantic chunks around a few hundred tokens, then tune using retrieval metrics rather than intuition.</p>
+
+<h2>4. Retrieval Design: Dense + Sparse + Reranking</h2>
+<p>Dense retrieval captures semantic similarity well, but lexical retrieval is still strong for exact terms, codes, and identifiers. In practice, hybrid retrieval often wins:</p>
+<ul>
+  <li><strong>Dense retrieval</strong> for concept-level matching.</li>
+  <li><strong>Sparse/BM25 retrieval</strong> for exact keyword precision.</li>
+  <li><strong>Reranker</strong> to reorder top candidates by cross-encoding relevance.</li>
+</ul>
+<p>This pattern improves both recall and final answer precision, especially in domains with mixed natural language and structured jargon.</p>
+
+<h3>Example retrieval flow</h3>
+<pre><code>query -> hybrid retrieve (k=40)
+      -> metadata/permission filter
+      -> rerank top 40 -> keep top 6
+      -> prompt assembly with source attributions</code></pre>
+
+<h2>5. Prompt Grounding: Make the Model Use Evidence, Not Improvise</h2>
+<p>Even with good retrieval, weak prompting can still produce unsupported answers. Your generation prompt should explicitly define behavior:</p>
+<ul>
+  <li>Answer only from provided context.</li>
+  <li>Cite sources per claim (or per paragraph).</li>
+  <li>Admit uncertainty when evidence is insufficient.</li>
+  <li>Prefer concise, faithful synthesis over speculation.</li>
+</ul>
+<p>For higher-stakes workflows, enforce citation checks in post-processing and reject unsupported outputs.</p>
+
+<h2>6. Evaluation: The Difference Between Demo and Product</h2>
+<p>RAG quality does not improve sustainably without an evaluation loop. Track both retrieval and generation metrics, and keep a curated benchmark set that reflects real user questions.</p>
+
+<figure>
+  <img src="/img/rag-eval-loop.svg" alt="RAG evaluation loop diagram" class="my-4" />
+  <figcaption>Measure, diagnose, and iterate. Reliability emerges from repeated evaluation cycles.</figcaption>
+</figure>
+
+<h3>Recommended metric categories</h3>
+<ul>
+  <li><strong>Retrieval metrics</strong>: Recall@k, MRR, context precision.</li>
+  <li><strong>Answer metrics</strong>: faithfulness, citation correctness, answer completeness.</li>
+  <li><strong>Operational metrics</strong>: p95 latency, cost per answer, timeout rate.</li>
+  <li><strong>Safety metrics</strong>: hallucination rate, policy violation rate.</li>
+</ul>
+
+<h2>7. Common Failure Modes and Fixes</h2>
+<h3>Failure 1: “The answer sounds right but cites the wrong source.”</h3>
+<p><strong>Fix:</strong> improve reranking, reduce noisy chunk length, enforce citation validation rules.</p>
+
+<h3>Failure 2: “The system misses obvious internal documents.”</h3>
+<p><strong>Fix:</strong> improve ingestion freshness, add sparse retrieval, verify metadata filters are not over-restrictive.</p>
+
+<h3>Failure 3: “Latency is too high at peak traffic.”</h3>
+<p><strong>Fix:</strong> reduce candidate set, cache embeddings and frequent retrieval results, apply two-stage retrieval efficiently.</p>
+
+<h3>Failure 4: “Quality drifts after document updates.”</h3>
+<p><strong>Fix:</strong> run incremental re-indexing, add freshness tests, and keep versioned evaluation snapshots.</p>
+
+<h2>8. A Practical Build Checklist</h2>
+<ul>
+  <li>Structured ingestion pipeline with document versioning.</li>
+  <li>Chunk + metadata policy that is testable and deterministic.</li>
+  <li>Hybrid retrieval with optional reranking.</li>
+  <li>Prompt policy for grounding, refusal, and citation format.</li>
+  <li>Offline benchmark + online telemetry dashboard.</li>
+  <li>Incident workflow for hallucination reports and root-cause analysis.</li>
+</ul>
+
+<h2>Conclusion</h2>
+<p>RAG is not a silver bullet, but it is currently one of the most practical architectures for building trustworthy AI assistants on private or rapidly changing knowledge. The teams that succeed with RAG are not the ones with the fanciest model; they are the ones that treat retrieval quality, prompt constraints, and evaluation rigor as first-class engineering concerns.</p>
+<p>If you are starting today, begin simple, instrument everything, and iterate with evidence. That mindset scales much better than chasing one-shot prompt magic.</p>
+`,
+    author: defaultAuthor,
+    readTime: '14 min read',
+    relatedPosts: [],
+  },
+  {
     title: "Spring IoC Annotation Usage",
     excerpt: "Master Spring IoC annotation-based configuration including @Component, @Autowired, @Qualifier, and component scanning for enterprise applications.",
     image: '/img/blog1.jpg',
