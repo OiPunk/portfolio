@@ -48,81 +48,92 @@ export const blogItems: BlogItemType[] = [
     slug: '2026-02-25-langchain4j-mcp-transport-compatibility',
     content: `
 <h1>How I Fixed a Core MCP Transport Compatibility Bug in LangChain4j</h1>
-<p>This article is a technical retrospective of one of my merged open-source contributions:</p>
-<p><a href="https://github.com/langchain4j/langchain4j/pull/4584" target="_blank" rel="noopener noreferrer">langchain4j/langchain4j#4584</a> (merged into <code>main</code> on February 25, 2026).</p>
-<p>The issue looked small at first, but it sat directly on a critical runtime path: MCP transport negotiation. In practice, that means real agent workflows could fail before any business logic even started.</p>
+<p>This is a technical retrospective of one of my merged open-source contributions in the LangChain4j core MCP client path.</p>
 
-<h2>Background: Why This Problem Mattered</h2>
-<p>LangChain4j's MCP integration relies on a transport layer that talks to Streamable HTTP MCP servers. The bug appeared in environments where protocol negotiation attempted an incompatible upgrade path, causing requests to hang or fail depending on server behavior.</p>
-<p>This is high impact because transport failures are not isolated errors. They block the whole capability chain:</p>
+<h2>Primary References</h2>
 <ul>
-  <li>Tool discovery may never complete.</li>
-  <li>Agent execution can fail during bootstrap.</li>
-  <li>Failure signals are noisy, making incident triage slower.</li>
+  <li><strong>Issue:</strong> <a href="https://github.com/langchain4j/langchain4j/issues/4582" target="_blank" rel="noopener noreferrer">langchain4j/langchain4j#4582</a></li>
+  <li><strong>Pull Request:</strong> <a href="https://github.com/langchain4j/langchain4j/pull/4584" target="_blank" rel="noopener noreferrer">langchain4j/langchain4j#4584</a></li>
+  <li><strong>Merged commit:</strong> <a href="https://github.com/langchain4j/langchain4j/commit/88486da56c7b56d2833c76a1a9748d897ffebf35" target="_blank" rel="noopener noreferrer">88486da56c7b56d2833c76a1a9748d897ffebf35</a></li>
+  <li><strong>Main source file:</strong> <a href="https://github.com/langchain4j/langchain4j/blob/main/langchain4j-mcp/src/main/java/dev/langchain4j/mcp/client/transport/http/StreamableHttpMcpTransport.java" target="_blank" rel="noopener noreferrer">StreamableHttpMcpTransport.java</a></li>
+  <li><strong>Test file:</strong> <a href="https://github.com/langchain4j/langchain4j/blob/main/langchain4j-mcp/src/test/java/dev/langchain4j/mcp/client/transport/StreamableHttpMcpTransportTest.java" target="_blank" rel="noopener noreferrer">StreamableHttpMcpTransportTest.java</a></li>
 </ul>
-<p>From a production engineering perspective, this is exactly the kind of issue that silently erodes trust in an AI platform.</p>
 
-<h2>What Was Actually Broken</h2>
-<p>The core symptom was protocol-level incompatibility during client-server communication for MCP streamable transport. Different servers and intermediaries do not always behave consistently around HTTP version negotiation and upgrade behavior.</p>
-<p>The original path was valid in some setups but brittle across real-world deployments. In distributed systems, "works on my machine" transport behavior is not enough.</p>
+<h2>Background</h2>
+<p>The issue looked small at first glance, but it sat on a high-leverage path: MCP stream transport initialization. If transport negotiation fails or hangs, the agent runtime cannot reliably discover tools or complete startup flows.</p>
+<p>The failure mode was tied to protocol negotiation behavior across heterogeneous MCP server implementations and proxies. In practical terms, this created intermittent incompatibility for streamable HTTP MCP sessions.</p>
 
-<h2>Fix Strategy and Design Constraints</h2>
-<p>I optimized for production safety and compatibility, not theoretical elegance. The goal was to reduce negotiation ambiguity and make transport behavior deterministic.</p>
-<p>Key constraints:</p>
+<h2>What Was Broken</h2>
+<p>During transport setup, HTTP version behavior could become environment-sensitive. Some server setups did not behave consistently under upgrade/negotiation paths, causing stream sessions to become fragile.</p>
+<p>This kind of bug is expensive in production because it appears as downstream instability: users see flaky tool calls, while logs often only show generic transport errors.</p>
+
+<h2>Design Goals for the Fix</h2>
 <ul>
-  <li>Do not break existing MCP integrations.</li>
-  <li>Keep API ergonomics acceptable for maintainers.</li>
-  <li>Add focused tests that prove behavior, not just implementation detail.</li>
+  <li>Keep default behavior safe for the majority path.</li>
+  <li>Retain explicit configurability for edge deployments.</li>
+  <li>Avoid unnecessary public API leakage of low-level JDK HTTP details.</li>
+  <li>Add regression tests directly at the transport boundary.</li>
 </ul>
-<p>The fix centered on transport HTTP version handling in <code>StreamableHttpMcpTransport</code>, plus targeted tests around the selected client behavior.</p>
 
-<h2>Implementation Walkthrough</h2>
-<h3>1. Normalize HTTP behavior in MCP transport</h3>
-<p>I updated transport construction so protocol usage is explicit and predictable rather than relying on environment-dependent negotiation behavior.</p>
+<h2>Implementation (with Source Links)</h2>
+<p>The final merged change set evolved through several review rounds and API-shape refinements. Two representative commits from that process:</p>
+<ul>
+  <li><a href="https://github.com/langchain4j/langchain4j/commit/7c3388df971402a40c74996e348c8ec5d2648d05" target="_blank" rel="noopener noreferrer">7c3388d - force HTTP/1.1 for streamable HTTP transport (initial fix)</a></li>
+  <li><a href="https://github.com/langchain4j/langchain4j/commit/108e3cca56e19cfb31b0a324bc818924a296cb7e" target="_blank" rel="noopener noreferrer">108e3cc - default HTTP/2 with explicit HTTP/1.1 opt-in (review-driven refinement)</a></li>
+</ul>
 
-<h3>2. Preserve configurability for advanced users</h3>
-<p>Maintainer feedback required balancing safe defaults with explicit override capability. The final shape kept a clear, intention-revealing API while avoiding unnecessary exposure of JDK-internal HTTP types in public surface area.</p>
+<h3>Core transport idea (simplified excerpt)</h3>
+<pre><code class="language-java">// Simplified shape of the merged approach
+HttpClient.Builder clientBuilder = HttpClient.newBuilder();
 
-<h3>3. Add regression tests at the transport boundary</h3>
-<p>I added tests that validate transport client version strategy directly. This ensures future refactors cannot accidentally reintroduce negotiation instability.</p>
+if (configuredVersion == HTTP_1_1) {
+    clientBuilder.version(HttpClient.Version.HTTP_1_1);
+} else {
+    clientBuilder.version(HttpClient.Version.HTTP_2);
+}
 
-<h2>Validation: How I Proved It</h2>
-<p>I ran focused module tests locally before every push and after each review-driven change:</p>
+HttpClient client = clientBuilder.build();</code></pre>
+
+<h3>Caller-side opt-in pattern (simplified)</h3>
+<pre><code class="language-java">StreamableHttpMcpTransport transport = StreamableHttpMcpTransport.builder()
+        .baseUri(serverUri)
+        .setHttpVersion1_1() // explicit downgrade when server requires it
+        .build();</code></pre>
+
+<h2>Regression Test Strategy</h2>
+<p>I added and updated tests around transport version behavior so future changes cannot silently regress interoperability.</p>
+
+<h3>Test intent (simplified)</h3>
+<pre><code class="language-java">@Test
+void shouldApplyConfiguredHttpVersionForStreamableTransport() {
+    StreamableHttpMcpTransport transport = StreamableHttpMcpTransport.builder()
+            .baseUri(URI.create("http://localhost:8080/mcp"))
+            .setHttpVersion1_1()
+            .build();
+
+    assertThat(extractHttpClientVersion(transport)).isEqualTo(HttpClient.Version.HTTP_1_1);
+}</code></pre>
+
+<h2>Validation and CI</h2>
+<p>Validation used module-scoped tests and format gates, then repeated verification after each maintainer feedback round:</p>
 <pre><code class="language-bash">./mvnw -pl langchain4j-mcp,langchain4j-http-client -am \
   -Dtest=StreamableHttpMcpTransportTest \
   -Dsurefire.failIfNoSpecifiedTests=false test</code></pre>
-<p>I also fixed formatting gate failures (<code>spotless</code>) in the same PR cycle to keep CI clean and maintain merge velocity.</p>
+<p>I also addressed style gate failures (Spotless) in the same PR to keep the merge path clean.</p>
 
-<h2>Review Process and Why This PR Has High Signal</h2>
-<p>This PR went through multiple rounds of maintainer feedback, including API-shape concerns and default behavior policy. The final merged result was not just "code that passes tests"; it aligned with project conventions and long-term maintainability.</p>
-<p>That is exactly what makes this contribution valuable for real engineering evaluation:</p>
+<h2>Why This PR Is High Value</h2>
 <ul>
-  <li><strong>Scope:</strong> core runtime path, not cosmetic change.</li>
-  <li><strong>Impact:</strong> improves cross-environment MCP reliability.</li>
-  <li><strong>Process quality:</strong> iterative review handling, CI discipline, API design compromise.</li>
-  <li><strong>Durability:</strong> regression tests encode expected behavior for future contributors.</li>
+  <li><strong>Scope:</strong> core runtime compatibility, not a cosmetic patch.</li>
+  <li><strong>Impact:</strong> directly improves MCP transport reliability across environments.</li>
+  <li><strong>Engineering quality:</strong> review-driven API refinement plus targeted regression tests.</li>
+  <li><strong>Career signal:</strong> demonstrates diagnosis, implementation, testing, and maintainer collaboration end-to-end.</li>
 </ul>
 
-<h2>What Problems Were Solved</h2>
-<ul>
-  <li>Reduced protocol negotiation fragility in Streamable HTTP MCP transport.</li>
-  <li>Improved compatibility across diverse server/network setups.</li>
-  <li>Lowered bootstrap failure risk for MCP-based agent workflows.</li>
-  <li>Added guardrails so regressions are caught earlier by CI.</li>
-</ul>
-
-<h2>Career Value: Why This Matters Beyond One Merge</h2>
-<p>For hiring and technical interviews, this is stronger evidence than a typical doc-only contribution. It demonstrates end-to-end ownership:</p>
-<ol>
-  <li>Problem diagnosis from runtime behavior.</li>
-  <li>Minimal but robust fix in the right abstraction layer.</li>
-  <li>Clear test strategy and CI closure.</li>
-  <li>Collaborative iteration with maintainers until merge.</li>
-</ol>
-<p>If you are building your own open-source track record, prioritize issues like this: small enough to ship, deep enough to prove engineering judgment.</p>
+<h2>Takeaway</h2>
+<p>For open-source contributors targeting real engineering credibility, this is the pattern to pursue: pick a small but critical failure mode, keep the fix minimal and testable, and iterate fast with maintainers until merge.</p>
 `,
     author: defaultAuthor,
-    readTime: '11 min read',
+    readTime: '14 min read',
     relatedPosts: ['2026-02-17-rag-practical-guide'],
   },
   {
