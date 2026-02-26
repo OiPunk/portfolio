@@ -38,6 +38,87 @@ const defaultAuthor: Author = {
 
 export const blogItems: BlogItemType[] = [
   {
+    title: "Fixing Vertex AI Gemini Tool-Schema Interop in LangChain4j",
+    excerpt: "A practical deep dive into merged PR #4625: how a JSON schema compatibility gap broke tool calling for Vertex AI Gemini, and how I fixed it with focused regression coverage.",
+    image: '/img/blog5.jpg',
+    url: '/blog/2026-02-26-langchain4j-vertexai-schema-interop',
+    date: 'February 26, 2026',
+    category: 'Open Source',
+    tags: ["LangChain4j", "Vertex AI", "Gemini", "Java", "JSON Schema", "Tool Calling"],
+    slug: '2026-02-26-langchain4j-vertexai-schema-interop',
+    content: `
+<h1>Fixing Vertex AI Gemini Tool-Schema Interop in LangChain4j</h1>
+<p>This post breaks down one of my recently merged open-source fixes in LangChain4j, focused on tool-schema compatibility with Vertex AI Gemini.</p>
+
+<h2>Primary References</h2>
+<ul>
+  <li><strong>Issue:</strong> <a href="https://github.com/langchain4j/langchain4j/issues/4617" target="_blank" rel="noopener noreferrer">langchain4j/langchain4j#4617</a></li>
+  <li><strong>Pull Request:</strong> <a href="https://github.com/langchain4j/langchain4j/pull/4625" target="_blank" rel="noopener noreferrer">langchain4j/langchain4j#4625</a></li>
+  <li><strong>Merged commit:</strong> <a href="https://github.com/langchain4j/langchain4j/commit/c825b43b351abb71faf0fa5ff608fa32c04ea003" target="_blank" rel="noopener noreferrer">c825b43b351abb71faf0fa5ff608fa32c04ea003</a></li>
+  <li><strong>Main implementation file:</strong> <a href="https://github.com/langchain4j/langchain4j/blob/main/langchain4j-vertex-ai-gemini/src/main/java/dev/langchain4j/model/vertexai/SchemaHelper.java" target="_blank" rel="noopener noreferrer">SchemaHelper.java</a></li>
+  <li><strong>Regression tests:</strong> <a href="https://github.com/langchain4j/langchain4j/blob/main/langchain4j-vertex-ai-gemini/src/test/java/dev/langchain4j/model/vertexai/SchemaHelperTest.java" target="_blank" rel="noopener noreferrer">SchemaHelperTest.java</a></li>
+</ul>
+
+<h2>Background</h2>
+<p>The bug appeared in a critical runtime path: converting internal tool parameter schemas into provider-specific schemas for Vertex AI Gemini function calling.</p>
+<p>When the conversion logic encountered <code>JsonAnyOfSchema</code> or <code>JsonNullSchema</code>, it failed with errors such as <code>Unknown type: JsonAnyOfSchema</code>. In practical terms, tool calling could break before the model even executed the function.</p>
+
+<h2>Why This Was Important</h2>
+<ul>
+  <li>It blocked real tool-calling workflows for valid JSON schema shapes.</li>
+  <li>It was not a cosmetic issue; it was a runtime interop failure.</li>
+  <li>It affected a high-value integration path: enterprise Java apps using LangChain4j with Vertex AI Gemini.</li>
+</ul>
+
+<h2>Root Cause</h2>
+<p>The schema mapping code handled common schema node types, but it did not cover all constructs required by modern tool definitions, especially union-like and nullable shapes.</p>
+<p>That meant the pipeline was correct only for a subset of schemas, which is fragile in production systems where schema expressiveness grows over time.</p>
+
+<h2>The Fix</h2>
+<p>I updated the schema conversion layer to support both <code>anyOf</code> and <code>null</code> schema elements, while preserving existing behavior for already-supported types.</p>
+
+<h3>Simplified mapping idea</h3>
+<pre><code class="language-java">// Simplified shape of the merged behavior
+if (schema instanceof JsonAnyOfSchema anyOfSchema) {
+    return mapAnyOf(anyOfSchema);
+}
+
+if (schema instanceof JsonNullSchema) {
+    return mapNullType();
+}
+
+return mapExistingTypes(schema);</code></pre>
+
+<p>The key point is not just adding branches. The change had to preserve backward compatibility and keep generated schemas valid for Vertex AI Gemini function declarations.</p>
+
+<h2>Validation and Regression Coverage</h2>
+<p>I added focused tests in <code>SchemaHelperTest</code> to ensure the mapping works for the new paths and does not regress existing behavior.</p>
+
+<h3>Validation command used locally</h3>
+<pre><code class="language-bash">./mvnw -pl langchain4j-vertex-ai-gemini -am \
+  -Dtest=SchemaHelperTest \
+  -Dsurefire.failIfNoSpecifiedTests=false test</code></pre>
+
+<p>I also ran style and quality gates before submission so maintainers could review logic directly without formatting noise.</p>
+
+<h2>Review Iteration</h2>
+<p>The PR went through normal maintainer review flow: scope checks, correctness checks, and test sufficiency checks. Keeping the patch small and test-backed was the reason it moved quickly to merge.</p>
+
+<h2>Impact and Value</h2>
+<ul>
+  <li><strong>Technical impact:</strong> fixes a real interop gap in a core provider integration path.</li>
+  <li><strong>Product impact:</strong> reduces hard runtime failures in tool-enabled Gemini workflows.</li>
+  <li><strong>Engineering signal:</strong> demonstrates issue triage, minimal-risk implementation, and regression-driven delivery in a top Java AI framework.</li>
+</ul>
+
+<h2>Takeaway</h2>
+<p>High-value open-source contributions are often not massive rewrites. They are precise fixes in critical paths, with clear tests and clear communication. This PR is a good example of that pattern.</p>
+`,
+    author: defaultAuthor,
+    readTime: '12 min read',
+    relatedPosts: ['2026-02-25-langchain4j-mcp-transport-compatibility', '2026-02-17-rag-practical-guide'],
+  },
+  {
     title: "How I Fixed a Core MCP Transport Compatibility Bug in LangChain4j",
     excerpt: "A deep technical breakdown of merged PR #4584 in langchain4j: protocol negotiation failures, transport-level design tradeoffs, and a production-safe fix with regression tests.",
     image: '/img/blog6.jpg',
